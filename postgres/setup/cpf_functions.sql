@@ -47,12 +47,6 @@ DECLARE
   dig2_calc INTEGER := sumCPF(cpf, 1);
   allEquals BOOLEAN := checkAllEquals(cpf);
 BEGIN
-  IF allEquals THEN
-    RETURN FALSE;
-  ELSIF dig1 = dig1_calc AND dig2 = dig2_calc THEN
-    RETURN TRUE;
-  ELSE
-    RETURN FALSE;
-  END IF;
+  RETURN NOT allEquals AND dig1 = dig1_calc AND dig2 = dig2_calc;
 END;
 $$ LANGUAGE plpgsql;

@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS "users" (
   rg VARCHAR(30) NOT NULL,
   email VARCHAR(255) UNIQUE NOT NULL,
   signature_b64 TEXT,
-  party_id INTEGER REFERENCES "party" (id) ON DELETE RESTRICT
+  party_id INTEGER REFERENCES "party" (id) ON DELETE RESTRICT,
+  CONSTRAINT valid_cpf CHECK (validateCPF(cpf))
 );
 
 CREATE TABLE IF NOT EXISTS "companies" (
@@ -16,6 +17,7 @@ CREATE TABLE IF NOT EXISTS "companies" (
   cnpj VARCHAR(14) UNIQUE NOT NULL,
   name TEXT,
   party_id INTEGER REFERENCES "party" (id) ON DELETE RESTRICT
+  CONSTRAINT valid_cnpj CHECK (validateCNPJ(cnpj))
 );
 
 CREATE TABLE IF NOT EXISTS "company_docs" (
