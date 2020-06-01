@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS "users" (
 CREATE TABLE IF NOT EXISTS "companies" (
   id SERIAL PRIMARY KEY,
   cnpj VARCHAR(14) UNIQUE NOT NULL,
-  name TEXT,
+  name TEXT NOT NULL,
   party_id INTEGER REFERENCES "party" (id) ON DELETE RESTRICT
   CONSTRAINT valid_cnpj CHECK (validateCNPJ(cnpj))
 );

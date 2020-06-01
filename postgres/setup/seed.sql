@@ -14,7 +14,7 @@ INSERT INTO "users" values('49232321896', '16516515616', 'test3@test.com', 3);
 -- companies
 INSERT INTO "companies" values('78589118000194', 'Disneylândia', 4);
 INSERT INTO "companies" values('28594513000197', 'Australian Migration', 5);
-INSERT INTO "companies" values('78005752000132', 'Purple Lights', 5);
+INSERT INTO "companies" values('78005752000132', 'Purple Lights', 6);
 
 -- company_docs
 INSERT INTO "company_docs" values(1, 'text_for_doc');
