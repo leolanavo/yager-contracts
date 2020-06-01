@@ -1,15 +1,15 @@
 -- parties
-INSERT INTO "party" values(default); -- id: 1
-INSERT INTO "party" values(default); -- id: 2
-INSERT INTO "party" values(default); -- id: 3
-INSERT INTO "party" values(default); -- id: 4
-INSERT INTO "party" values(default); -- id: 5
-INSERT INTO "party" values(default); -- id: 6
+INSERT INTO "parties" values(default); -- id: 1
+INSERT INTO "parties" values(default); -- id: 2
+INSERT INTO "parties" values(default); -- id: 3
+INSERT INTO "parties" values(default); -- id: 4
+INSERT INTO "parties" values(default); -- id: 5
+INSERT INTO "parties" values(default); -- id: 6
 
 -- users
-INSERT INTO "users" values('35790497802', '3895229406', 'test1@test.com', 1);
-INSERT INTO "users" values('44903056805', '61651968498', 'test2@test.com', 2);
-INSERT INTO "users" values('49232321896', '16516515616', 'test3@test.com', 3);
+INSERT INTO "users" values('35790497802', '3895229406', 'test1@test.com', NULL, 1);
+INSERT INTO "users" values('44903056805', '61651968498', 'test2@test.com', NULL, 2);
+INSERT INTO "users" values('49232321896', '16516515616', 'test3@test.com', NULL, 3);
 
 -- companies
 INSERT INTO "companies" values('78589118000194', 'Disneylândia', 4);
