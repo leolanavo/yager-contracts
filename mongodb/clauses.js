@@ -215,7 +215,7 @@ clauses = [
     "_id": "clause16",
     "text": "donec ut dolor morbi vel lectus in quam fringilla rhoncus mauris enim leo rhoncus sed vestibulum sit amet cursus id turpis integer aliquet massa id lobortis convallis tortor risus dapibus augue vel accumsan tellus nisi eu orci mauris lacinia sapien quis libero nullam sit amet turpis elementum ligula vehicula consequat morbi a ipsum integer a nibh in quis justo maecenas rhoncus aliquam lacus morbi quis tortor id nulla ultrices aliquet maecenas leo odio condimentum id luctus nec molestie sed justo pellentesque viverra pede ac diam cras pellentesque volutpat dui maecenas tristique est et tempus semper est quam pharetra magna ac consequat metus sapien ut nunc vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae mauris viverra diam vitae quam suspendisse potenti nullam porttitor lacus at turpis donec posuere metus vitae ipsum aliquam non mauris morbi non lectus aliquam sit",
     "payment": {
-      "base_charge": "R$ 8634.10",
+      "base_charge": "R$ 1200000.00",
       "type": "Once",
       "due_date": "2015-06-25T14:34:31.873Z"
     }
@@ -233,22 +233,17 @@ clauses = [
     "_id": "clause18",
     "text": "dictumst morbi vestibulum velit id pretium iaculis diam erat fermentum justo nec condimentum neque sapien placerat ante nulla justo aliquam quis turpis eget elit sodales scelerisque mauris sit amet eros suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh quisque id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae nulla dapibus dolor vel est donec odio justo sollicitudin ut suscipit a feugiat et eros vestibulum ac est lacinia nisi venenatis tristique fusce congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu",
     "payment": {
-      "base_charge": "R$ 7940.29",
+      "base_charge": "R$ 7415000.00",
       "type": "Once",
       "due_date": "2015-06-25T14:34:31.873Z",
-      "applied_payments": [
-
-      ],
       "increments": [
         {
           "period": "Annually",
-          "relative_rate": "0.13%",
-          "absolute_rate": "R$ 291.27"
+          "absolute_rate": "R$ 10000.00"
         },
         {
           "period": "Annually",
-          "relative_rate": "0.86%",
-          "absolute_rate": "R$ 171.56"
+          "relative_rate": "0.50%",
         }
       ]
     }
@@ -277,7 +272,7 @@ clauses = [
         },
         {
           "period": "Annually",
-          "relative_rate": "0.02%"
+          "relative_rate": "0.32%"
         }
       ]
     }
