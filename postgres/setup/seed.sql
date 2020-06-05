@@ -1,20 +1,20 @@
 -- parties
-INSERT INTO "parties" values(default); -- id: 1
-INSERT INTO "parties" values(default); -- id: 2
-INSERT INTO "parties" values(default); -- id: 3
-INSERT INTO "parties" values(default); -- id: 4
-INSERT INTO "parties" values(default); -- id: 5
-INSERT INTO "parties" values(default); -- id: 6
+INSERT INTO "parties" values(1); -- id: 1
+INSERT INTO "parties" values(2); -- id: 2
+INSERT INTO "parties" values(3); -- id: 3
+INSERT INTO "parties" values(4); -- id: 4
+INSERT INTO "parties" values(5); -- id: 5
+INSERT INTO "parties" values(6); -- id: 6
 
 -- users
-INSERT INTO "users" values('35790497802', '3895229406', 'test1@test.com', NULL, 1);
-INSERT INTO "users" values('44903056805', '61651968498', 'test2@test.com', NULL, 2);
-INSERT INTO "users" values('49232321896', '16516515616', 'test3@test.com', NULL, 3);
+INSERT INTO "users" values(1, '82246539005', '3895229406', 'test1@test.com', NULL, 1);
+INSERT INTO "users" values(2, '42309164003', '61651968498', 'test2@test.com', NULL, 2);
+INSERT INTO "users" values(3, '41330958047', '16516515616', 'test3@test.com', NULL, 3);
 
 -- companies
-INSERT INTO "companies" values('78589118000194', 'Disneylândia', 4);
-INSERT INTO "companies" values('28594513000197', 'Australian Migration', 5);
-INSERT INTO "companies" values('78005752000132', 'Purple Lights', 6);
+INSERT INTO "companies" values(1, '78589118000194', 'Disneylândia', 4);
+INSERT INTO "companies" values(2, '28594513000197', 'Australian Migration', 5);
+INSERT INTO "companies" values(3, '78005752000132', 'Purple Lights', 6);
 
 -- company_docs
 INSERT INTO "company_docs" values(1, 'text_for_doc');
@@ -36,4 +36,4 @@ INSERT INTO "represents" values(2, 2);
 -- in_contract
 INSERT INTO "in_contract" values(1, 3);
 INSERT INTO "in_contract" values(2, 5);
-INSERT INTO "in_contract" values(5, 2);
+INSERT INTO "in_contract" values(5, 4);

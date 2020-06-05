@@ -6,7 +6,7 @@ DECLARE
   result INTEGER;
   dig_temp INTEGER;
 BEGIN
-  WHILE (index <= 9) LOOP
+  WHILE (index <= 9 + digit_offset) LOOP
     dig_temp := CAST(substring(cpf, index, 1) AS INTEGER);
     sum := sum + dig_temp * ((11 - index) + digit_offset);
     index := index + 1;
