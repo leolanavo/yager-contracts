@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS "users" (
   rg VARCHAR(30) NOT NULL,
   email VARCHAR(255) UNIQUE NOT NULL,
   signature_b64 TEXT,
-  party_id INTEGER REFERENCES "parties" (id) ON DELETE RESTRICT UNIQUE,
+  party_id INTEGER REFERENCES "parties" (id) ON DELETE RESTRICT UNIQUE NOT NULL,
   CONSTRAINT valid_cpf CHECK (validateCPF(cpf))
 );
 
@@ -39,5 +39,5 @@ CREATE TABLE IF NOT EXISTS "in_contract" (
   id SERIAL PRIMARY KEY,
   main_party INTEGER REFERENCES "parties" (id) ON DELETE SET NULL,
   secondary_party INTEGER REFERENCES "parties" (id) ON DELETE SET NULL,
-  CONSTRAINT different_parties CHECK main_party <> secondary_party
+  CONSTRAINT different_parties CHECK (main_party <> secondary_party)
 );
