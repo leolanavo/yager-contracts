@@ -129,8 +129,8 @@ contracts = [
     ]
   },
   {
-    "party_a": 3,
-    "party_b": 6,
+    "party_a": 6,
+    "party_b": 3,
     "start_date": "2020-01-01T00:00:00.000Z",
     "end_date": "2025-01-01T00:00:00.000Z",
     "applied_clauses": [
