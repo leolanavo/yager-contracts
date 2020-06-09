@@ -77,7 +77,7 @@ const result3 = db.contracts.find({
 
 
 // Número de contratos com extensões de vigência
-result4 = db.contracts.aggregate([
+const result4 = db.contracts.aggregate([
     {
         $match: {
             extensions: {
@@ -92,7 +92,7 @@ result4 = db.contracts.aggregate([
 ])
 
 // Número de contratos em que cada parte participa
-result5 = db.contracts.aggregate([
+const result5 = db.contracts.aggregate([
     {
         $facet: {
             party_a_count: [{ $sortByCount: "$party_a" }],
@@ -123,8 +123,3 @@ result5 = db.contracts.aggregate([
         $sort: { _id: 1 }
     }
 ])
-
-result = result5
-while (result.hasNext()) {
-    printjson(result.next())
-}
