@@ -7,9 +7,9 @@ INSERT INTO "parties" values(5); -- id: 5
 INSERT INTO "parties" values(6); -- id: 6
 
 -- users
-INSERT INTO "users" values(1, '82246539005', '3895229406', 'test1@test.com', NULL, 1);
-INSERT INTO "users" values(2, '42309164003', '61651968498', 'test2@test.com', NULL, 2);
-INSERT INTO "users" values(3, '41330958047', '16516515616', 'test3@test.com', NULL, 3);
+INSERT INTO "users" values(1, '82246539005', '3895229406', 'test1@test.com',  'Victor', NULL, 1);
+INSERT INTO "users" values(2, '42309164003', '61651968498', 'test2@test.com', 'Lana', NULL, 2);
+INSERT INTO "users" values(3, '41330958047', '16516515616', 'test3@test.com', 'Scholl', NULL, 3);
 
 -- companies
 INSERT INTO "companies" values(1, '78589118000194', 'Disneylândia', 4);
@@ -25,6 +25,7 @@ INSERT INTO "company_docs" values(3, 'text_for_doc');
 INSERT INTO "company_segments" values(1, 'entertainment');
 INSERT INTO "company_segments" values(2, 'travel');
 INSERT INTO "company_segments" values(2, 'tourism');
+INSERT INTO "company_segments" values(3, 'tourism');
 INSERT INTO "company_segments" values(3, 'housing');
 INSERT INTO "company_segments" values(3, 'renovation');
 
@@ -34,6 +35,9 @@ INSERT INTO "represents" values(1, 2);
 INSERT INTO "represents" values(2, 2);
 
 -- in_contract
-INSERT INTO "in_contract" values(1, 3);
-INSERT INTO "in_contract" values(2, 5);
-INSERT INTO "in_contract" values(5, 4);
+INSERT INTO "in_contract" values(default, 1, 3);
+INSERT INTO "in_contract" values(default, 2, 5);
+INSERT INTO "in_contract" values(default, 5, 4);
+INSERT INTO "in_contract" values(default, 4, 6);
+INSERT INTO "in_contract" values(default, 2, 1);
+INSERT INTO "in_contract" values(default, 6, 3);

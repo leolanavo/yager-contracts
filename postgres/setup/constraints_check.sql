@@ -18,7 +18,7 @@ INSERT INTO "parties" values(12);
 INSERT INTO "parties" values(13);
 
 -- //// --> ON DELETE RESTRICT check
-INSERT INTO "users" values(1, '31739742044', '88888', 'party_deletion@test.com', NULL, 6); -- id: 1
+INSERT INTO "users" values(1, '31739742044', '88888', 'party_deletion@test.com', 'Luiz', NULL, 6); -- id: 1
 INSERT INTO "companies" values(1, '59905452000165', 'Austrian Travel', 7); -- id: 1
 
 -- both these deletions should fail
@@ -36,39 +36,41 @@ SELECT * FROM "in_contract" WHERE secondary_party=13;
 -- ***************** USERS *******************
 -- //// --> null checks
 -- cpf
-INSERT INTO "users" values (default, NULL, '111111111', 'test@test.com', NULL, 1);
+INSERT INTO "users" values (default, NULL, '111111111', 'test@test.com', 'Luiz', NULL, 1);
 -- rg
-INSERT INTO "users" values (default, '35790497802', NULL, 'test@test.com', NULL, 1);
+INSERT INTO "users" values (default, '35790497802', NULL, 'test@test.com', 'Luiz', NULL, 1);
 -- email
-INSERT INTO "users" values (default, '35790497802', '11111111', NULL, NULL, 1);
+INSERT INTO "users" values (default, '35790497802', '11111111', NULL, 'Luiz', NULL, 1);
+-- name
+INSERT INTO "users" values (default, '35790497802', '11111111', 'test@test.com', 'Luiz', NULL, 1);
 -- party
-INSERT INTO "users" values (default, '35790497802', '11111111', 'test@test.com', NULL, NULL);
+INSERT INTO "users" values (default, '35790497802', '11111111', 'test@test.com', 'Luiz', NULL, NULL);
 -- //// 
 
 -- //// --> unique checks
 -- cpf
-INSERT INTO "users" values (2, '99635351003', '111111111', 'test23@test.com', NULL, 1);
-INSERT INTO "users" values (default, '99635351003', '2222222222', 'test24@test.com', NULL, 2);
+INSERT INTO "users" values (2, '99635351003', '111111111', 'test23@test.com', 'Luiz', NULL, 1);
+INSERT INTO "users" values (default, '99635351003', '2222222222', 'test24@test.com', 'Luiz', NULL, 2);
 -- email
-INSERT INTO "users" values (3, '65081101010', '22222', 'test25@test.com', NULL, 2);
-INSERT INTO "users" values (default, '86932516004', '33333', 'test25@test.com', NULL, 3);
+INSERT INTO "users" values (3, '65081101010', '22222', 'test25@test.com', 'Luiz', NULL, 2);
+INSERT INTO "users" values (default, '86932516004', '33333', 'test25@test.com', 'Luiz', NULL, 3);
 -- party
-INSERT INTO "users" values (4, '92530698058', '44444', 'test26@test.com', NULL, 3);
-INSERT INTO "users" values (default, '61072157004', '55555', 'test27@test.com', NULL, 3);
+INSERT INTO "users" values (4, '92530698058', '44444', 'test26@test.com', 'Luiz', NULL, 3);
+INSERT INTO "users" values (default, '61072157004', '55555', 'test27@test.com', 'Luiz', NULL, 3);
 -- //// 
 
 -- //// --> references checks
-INSERT INTO "users" values (default, '02415838020', '66666', 'test28@test.com', NULL, 999);
+INSERT INTO "users" values (default, '02415838020', '66666', 'test28@test.com', 'Luiz', NULL, 999);
 -- //// 
 
 -- //// --> valid cpf checks
-INSERT INTO "users" values (default, '11111111111', '77777777', 'test31@test.com', NULL, 12); -- invalid
-INSERT INTO "users" values (default, '35790497803', '88888888', 'test32@test.com', NULL, 13); -- invalid
+INSERT INTO "users" values (default, '11111111111', '77777777', 'test31@test.com', 'Luiz', NULL, 12); -- invalid
+INSERT INTO "users" values (default, '35790497803', '88888888', 'test32@test.com', 'Luiz', NULL, 13); -- invalid
 -- //// 
 
 -- //// --> ON DELETE CASCADE
-INSERT INTO "users" values (6, '87606458065', '978798987', 'user_deletion@test.com', NULL, 8); -- id: 6
-INSERT INTO "companies" values (default, '94545234000168', 'Disnye', 9); -- id: 2
+INSERT INTO "users" values (6, '87606458065', '978798987', 'user_deletion@test.com', 'Luiz', NULL, 8); -- id: 6
+INSERT INTO "companies" values (default, '94545234000168', 'Disnye', 'Luiz', 9); -- id: 2
 INSERT INTO "represents" values (6, 2);
 DELETE FROM "users" WHERE id=6;
 SELECT * FROM "represents" WHERE user_id="6";
@@ -101,7 +103,7 @@ INSERT INTO "companies" values(default, '92425920000171', 'Divan Psicologia', 99
 -- ////
 
 -- //// --> ON DELETE CASCADE check
-INSERT INTO "users" values(7, '23468444036', '91919849', 'company_deletion@test.com', NULL, 10); -- id: 7
+INSERT INTO "users" values(7, '23468444036', '91919849', 'company_deletion@test.com', 'Luiz', NULL, 10); -- id: 7
 INSERT INTO "companies" values(5, '92425920000170', 'Divan Psicologia', 11); -- id: 5
 INSERT INTO "company_docs" values(5, 'text for doc');
 INSERT INTO "company_segments" values(5, 'travel');
