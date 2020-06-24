@@ -5,7 +5,7 @@ services:
     image: "postgres:12.3-alpine"
     volumes:
       - "relational-data:/var/lib/postgresql/data"
-      - "./postgres:/usr/src/scripts"
+      - "../db_scripts/postgres:/usr/src/scripts"
     ports:
       - "5432:5432"
     environment:
@@ -18,7 +18,7 @@ services:
       - "27017:27017"
     volumes:
       - "docs-data:/bitnami/mongodb"
-      - "./mongodb:/usr/src/scripts"
+      - "../db_scripts/mongodb:/usr/src/scripts"
     environment:
       - MONGODB_DATABASE=yager
   neo4j:
@@ -28,9 +28,20 @@ services:
       - "7474:7474"
     volumes:
       - "graph-data:/var/lib/neo4j/data"
-      - "./neo4j:/usr/src/scripts"
+      - "../db_scripts/neo4j:/usr/src/scripts"
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - "api_deps:/api/node_modules/"
+      - "../api:/api"
+
 
 volumes:
   relational-data:
   docs-data:
   graph-data:
+  api_deps:
