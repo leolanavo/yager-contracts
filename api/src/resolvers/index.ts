@@ -11,10 +11,11 @@ interface GetUserArgs {
   _id: string;
 }
 
+// TODO: names and properties have to change
 const resolvers: any = {
   Mutation: {
     async createUser(_: any, args: CreateAppliedPaymentsArgs, context: Context, ___: any): Promise<IAppliedPayment> {
-      const { db: mongo, uuidv4 }: Context = context;
+      const { mongodb: mongo, uuidv4 }: Context = context;
       const { name, email }: any = args;
 
       let payment: any = await mongo.AppliedPayment.findOne({ email });
@@ -33,10 +34,26 @@ const resolvers: any = {
 
       return payment;
     },
+    async createCompany(_: any, args: any, context: Context, ___: any): Promise<any> {
+      const { postgres }: Context = context;
+      const { name, cnpj}: any = args;
+
+      var company = await postgres.Company.findOne({cnpj})
+      if (company)
+        throw new ApolloError('CNPJ already in use', '409');
+
+      company = await postgres.Company.create({
+        name,
+        cnpj,
+        party_id: 2
+      })
+
+      return company.dataValues
+    }
   },
   Query: {
     async getUser(_: any, args: GetUserArgs, context: Context, ___: any): Promise<IAppliedPayment> {
-      const { db: mongo }: Context = context;
+      const { mongodb: mongo }: Context = context;
       const { _id }: any = args;
 
       const payment: IAppliedPayment | null = await mongo.AppliedPayment.findOne({ _id });

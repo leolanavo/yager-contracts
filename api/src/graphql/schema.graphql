@@ -4,10 +4,19 @@ type User {
   name: String!
 }
 
+type Company {
+  _id: ID!
+  name: String!
+  cnpj: String!
+  segments: [ID!]!
+  documents: [ID!]!
+}
+
 type Query {
   getUser(_id: ID!): User!
 }
 
 type Mutation {
   createUser(email: String!, name: String!): User!
+  createCompany(name: String!, cnpj: String!, segments: [ID!]! , documents: [ID!]!): Company!
 }
