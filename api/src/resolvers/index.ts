@@ -14,20 +14,25 @@ interface GetUserArgs {
 // TODO: names and properties have to change
 const resolvers: any = {
   Mutation: {
-    async createUser(_: any, args: CreateAppliedPaymentsArgs, context: Context, ___: any): Promise<IAppliedPayment> {
+    async createUser(_: any, args: CreateAppliedPaymentsArgs, context: Context, ___: any): Promise<any> {
+      const { neo4j }: Context = context;
+      const { name }: any = args;
+
+      console.log('hello')
+      const x = await neo4j.session
+        .run('MATCH (x:User) RETURN x;', {
+          name,
+        });
+
+      x.records.forEach(y => console.log(y.get('x')));
+
+      return "hello"
+    },
+    async createPayment(_: any, __: CreateAppliedPaymentsArgs, context: Context, ___: any): Promise<any> {
       const { mongodb: mongo, uuidv4 }: Context = context;
-      const { name, email }: any = args;
 
-      let payment: any = await mongo.AppliedPayment.findOne({ email });
-
-      if (payment) {
-        throw new ApolloError('Email already being user', '409');
-      }
-
-      payment = {
+      const payment = {
         _id: uuidv4(),
-        name,
-        email,
       };
 
       mongo.AppliedPayment.insertMany([payment])
@@ -36,9 +41,9 @@ const resolvers: any = {
     },
     async createCompany(_: any, args: any, context: Context, ___: any): Promise<any> {
       const { postgres }: Context = context;
-      const { name, cnpj}: any = args;
+      const { name, cnpj }: any = args;
 
-      var company = await postgres.Company.findOne({cnpj})
+      var company = await postgres.Company.findOne({ cnpj })
       if (company)
         throw new ApolloError('CNPJ already in use', '409');
 

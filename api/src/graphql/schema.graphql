@@ -18,5 +18,6 @@ type Query {
 
 type Mutation {
   createUser(email: String!, name: String!): User!
+  createPayment: User!
   createCompany(name: String!, cnpj: String!, segments: [ID!]! , documents: [ID!]!): Company!
 }

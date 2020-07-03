@@ -10,10 +10,10 @@ import { makeExecutableSchema } from 'graphql-tools';
 
 import uuidv4 from 'uuid/v4';
 
-import postgres from 'src/db/postgres/index'
-
-import mongodb, { DbConnection } from 'src/db/mongo/models/index';
-import resolvers from 'src/resolvers/index';
+import postgres from 'src/db/postgres'
+import neo4j from 'src/db/neo4j';
+import mongodb, { DbConnection } from 'src/db/mongo/models';
+import resolvers from 'src/resolvers';
 
 import { ContextFunction } from 'apollo-server-core';
 import { v4 } from 'uuid/interfaces';
@@ -26,7 +26,8 @@ export interface Context {
   ctx: Hash;
   uuidv4: v4;
   mongodb: DbConnection;
-  postgres;
+  postgres: any;
+  neo4j: any;
 }
 
 type ServerContextFunction = ContextFunction<Hash, Context>;
@@ -41,7 +42,8 @@ const context: ServerContextFunction = ({ ctx }: Hash): Context => ({
   ctx,
   uuidv4,
   mongodb,
-  postgres
+  postgres,
+  neo4j,
 });
 
 const server: ApolloServer = new ApolloServer({
