@@ -2,7 +2,9 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "commonjs",
-    "lib": ["esnext"],
+    "lib": [
+      "esnext"
+    ],
     "outDir": "dist",
     "sourceMap": true,
     "strict": true,
@@ -16,7 +18,21 @@
     "noImplicitAny": false,
     "baseUrl": ".",
     "paths": {
-      "src/*": ["src/*"]
+      "@typings/*": [
+        "src/typings/*"
+      ],
+      "@mongodb/*": [
+        "src/db/mongodb/*"
+      ],
+      "@postgres/*": [
+        "src/db/postgres/*"
+      ],
+      "@neo4j/*": [
+        "src/db/neo4j/*"
+      ],
+      "@resolvers/*": [
+        "src/resolvers/*"
+      ]
     }
   },
   "include": [

@@ -4,6 +4,13 @@ type User {
   name: String!
 }
 
+type AppliedPayment {
+  _id: String!
+  baseValue: Float!
+  type: String!
+  dueDate: String!
+}
+
 type Company {
   _id: ID!
   name: String!
@@ -13,11 +20,11 @@ type Company {
 }
 
 type Query {
-  getUser(_id: ID!): User!
+  getPayment(id: ID!): User!
 }
 
 type Mutation {
   createUser(email: String!, name: String!): User!
-  createPayment: User!
+  createPayment(baseValue: Float!, type: String!, dueDate: String!): AppliedPayment!
   createCompany(name: String!, cnpj: String!, segments: [ID!]! , documents: [ID!]!): Company!
 }

@@ -24,6 +24,7 @@
     "graphql-import": "^0.7.1",
     "graphql-tools": "^4.0.4",
     "koa": "^2.7.0",
+    "module-alias": "^2.2.2",
     "mongoose": "^5.5.10",
     "neo4j-driver": "^4.1.0",
     "pg": "^8.2.1",
@@ -47,5 +48,11 @@
     "tscpaths": "0.0.9",
     "tslint": "^5.16.0",
     "typescript": "^3.4.5"
+  },
+  "_moduleAliases": {
+    "@mongodb": "dist/db/mongodb",
+    "@postgres": "dist/db/postgres",
+    "@neo4j": "dist/db/neo4j",
+    "@resolvers": "dist/resolvers"
   }
 }

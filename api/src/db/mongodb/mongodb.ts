@@ -1,10 +1,6 @@
 import mongoose from 'mongoose';
 
-import AppliedPayment, { TAppliedPayment } from 'src/db/mongo/models/AppliedPayment';
-
-export interface DbConnection {
-  [key: string]: TAppliedPayment;
-}
+import AppliedPayment from '@mongodb/models/AppliedPayment';
 
 const mongoUrl: string = process.env.MONGO_URL
   ? process.env.MONGO_URL
