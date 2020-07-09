@@ -2,9 +2,9 @@ import { AppliedPayment } from '@typings/AppliedPayment';
 import { Context } from '@typings/Context';
 
 interface Args {
-  baseValue: number;
-  type: string;
-  dueDate: string;
+  extraCharge: number,
+  chargeDate: string,
+  paymentDate: string
 }
 
 export async function createPayment(

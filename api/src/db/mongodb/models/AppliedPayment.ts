@@ -5,8 +5,9 @@ import { AppliedPaymentDocument, AppliedPaymentModel } from "@typings/AppliedPay
 const AppliedPayment: AppliedPaymentModel =
   model<AppliedPaymentDocument>('AppliedPayment', new Schema({
     _id: String,
-    email: String,
-    name: String,
+    extraCharge: Number,
+    chargeDate: String,
+    paymentDate: String
   }));
 
 export default AppliedPayment;
