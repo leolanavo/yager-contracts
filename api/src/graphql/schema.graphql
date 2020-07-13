@@ -11,6 +11,28 @@ type AppliedPayment {
   paymentDate: String
 }
 
+type Clause {
+  _id: ID!
+  text: String!
+  payment: Payment
+  references: [ID]
+}
+
+type Payment {
+  _id: ID!,
+  baseCharge: Float!,
+  type: String!,
+  payment_deadline: Int,
+  increments: [Increment]
+}
+
+type Increment {
+  _id: ID!,
+  period: Int,
+  relative_rate: Float!,
+  absolute_rate: Float!,
+}
+
 type Company {
   _id: ID!
   name: String!
@@ -27,4 +49,7 @@ type Mutation {
   createUser(email: String!, name: String!): User!
   createPayment(baseCharge: Float!, chargeDate: String!, paymentDate: String): AppliedPayment!
   createCompany(name: String!, cnpj: String!, segments: [ID!]! , documents: [ID!]!): Company!
+  createClause(text: String!): Clause!
+  addPayment(clauseId: ID!, baseCharge: Float!, type: String!, payment_deadline: Int): Payment!
+  addIncrement(paymentId: ID!, period: Int, relative_rate: Float!, absolute_rate: Float!): Increment!
 }

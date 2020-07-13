@@ -3,10 +3,12 @@ import { Context } from '@typings/Context';
 
 import { createCompany } from '@resolvers/Company';
 import { createPayment, getPayment } from '@resolvers/AppliedPayment';
+import { createClause } from '@resolvers/Clause'
 
 
 const resolvers: IResolvers = {
   Mutation: {
+    createClause,
     createCompany,
     createPayment,
     async createUser(_: any, args: any, context: Context, ___: any): Promise<any> {

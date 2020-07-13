@@ -8,7 +8,12 @@ const Payment: PaymentModel =
     baseCharge: Number,
     type: String,
     payment_deadline: Number,
-    increments: [Object],
+    increments: [{
+      _id: String,
+      period: Number,
+      relative_rate: Number,
+      absolute_rate: Number,
+    }]
   }));
 
 export default Payment;
