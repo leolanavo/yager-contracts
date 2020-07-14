@@ -34,7 +34,7 @@ export async function createCompany(
 ): Promise<any> {
   const { postgres, neo4j, uuidv4 }: Context = context;
   const { name, cnpj, segments }: Args = args;
-  const Company: CompanyCtorModel = postgres.instance.models.Company;
+  const Company: CompanyCtorModel = postgres.models.Company;
 
   let company: CompanyModel | null = await Company.findOne({
     where: {

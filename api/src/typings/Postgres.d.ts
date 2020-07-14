@@ -1,5 +1,3 @@
-import { Sequelize, Model } from 'sequelize';
+import { Sequelize } from 'sequelize';
 
-export interface PostgresInterface {
-  instance: Sequelize,
-}
+export type PostgresInterface = Sequelize;

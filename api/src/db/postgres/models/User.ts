@@ -1,22 +1,31 @@
+
 import { Model, DataTypes } from 'sequelize'
 
 import postgres from '@postgres/postgres';
-import { ICompany } from "@typings/Company";
+import { IUser } from '@typings/User';
 
-class Company extends Model<ICompany> {
+class User extends Model<IUser> {
   public id!: string;
   public name!: string;
-  public cnpj!: string;
-  public segments!: string[];
-  public documents!: string[];
+  public cpf!: string;
+  public party_id!: string;
 }
 
-Company.init({
+User.init({
   id: {
     type: DataTypes.UUIDV4,
     primaryKey: true,
   },
-  cnpj: {
+  cpf: {
+    type: DataTypes.STRING,
+    unique: true,
+    allowNull: false,
+  },
+  rg: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  email: {
     type: DataTypes.STRING,
     unique: true,
     allowNull: false,
@@ -25,19 +34,12 @@ Company.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-  segments: {
-    type: DataTypes.ARRAY(DataTypes.STRING),
-    defaultValue: [],
-    allowNull: false,
+  signature: {
+    type: DataTypes.STRING,
   },
-  documents: {
-    type: DataTypes.ARRAY(DataTypes.STRING),
-    defaultValue: [],
-    allowNull: false,
-  }
 }, {
   sequelize: postgres,
   timestamps: false
 });
 
-Company.hasOne(postgres.models.Party);
+User.hasOne(postgres.models.Party);

@@ -8,6 +8,4 @@ const instance = new Sequelize(
   }
 );
 
-export default {
-  instance,
-};
+export default instance;
