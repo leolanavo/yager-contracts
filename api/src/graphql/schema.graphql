@@ -73,6 +73,6 @@ type Mutation {
   createCompany(name: String!, cnpj: String!, segments: [ID!]! , documents: [ID!]!): Company!
 
   # Contract resolvers
-  createContract(party_a: ID!, party_b: ID!, start_date: String!, end_date: String!):Contract!
+  createContract(party_a: ID!, party_b: ID!, start_date: String!, end_date: String!): Contract!
   createClause(text: String!): Clause!
 }

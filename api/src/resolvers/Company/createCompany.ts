@@ -1,6 +1,7 @@
 import { ApolloError } from "apollo-server-koa";
 
 import { Context } from "@typings/Context";
+import { CompanyModel, CompanyCtorModel } from "@typings/Company";
 
 interface Args {
   name: string;
@@ -31,10 +32,11 @@ export async function createCompany(
   context: Context,
   ___: any
 ): Promise<any> {
-  const { postgres, neo4j }: Context = context;
+  const { postgres, neo4j, uuidv4 }: Context = context;
   const { name, cnpj, segments }: Args = args;
+  const Company: CompanyCtorModel = postgres.instance.models.Company;
 
-  let company = await postgres.Company.findOne({
+  let company: CompanyModel | null = await Company.findOne({
     where: {
       cnpj,
     },
@@ -45,7 +47,8 @@ export async function createCompany(
   //TODO: Criar na tabela parties do postgres
   const party_id = 2;
 
-  company = await postgres.Company.create({
+  company = await Company.create({
+    id: uuidv4(),
     name,
     cnpj,
     party_id,
@@ -61,7 +64,7 @@ export async function createCompany(
 
   //TODO: Criar nó de company no neo4j
   await neo4j.session.run(createCompanyCypher, {
-    id: company.id,
+    id: company.get('id'),
     name,
     cnpj,
     party_id,
@@ -79,10 +82,10 @@ export async function createCompany(
     });
 
     await neo4j.session.run(createCompanySegmentCypher, {
-      id: company.id,
+      id: company.get('id'),
       segment: segments[i]
     });
   }
 
-  return company.toGraphQL();
+  return company.toJSON();
 }

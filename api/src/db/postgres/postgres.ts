@@ -1,8 +1,6 @@
 import * as pg from 'pg';
 import { Sequelize } from 'sequelize'
 
-import Company from "@postgres/models/Company"
-
 const instance = new Sequelize(
   process.env.POSTGRES_URL as string,
   {
@@ -12,5 +10,4 @@ const instance = new Sequelize(
 
 export default {
   instance,
-  Company,
 };

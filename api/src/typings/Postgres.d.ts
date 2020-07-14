@@ -1,7 +1,5 @@
-import { Sequelize } from 'sequelize';
-import { Company } from '@typings/Company';
+import { Sequelize, Model } from 'sequelize';
 
 export interface PostgresInterface {
   instance: Sequelize,
-  Company: Company,
 }

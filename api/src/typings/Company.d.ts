@@ -1,4 +1,4 @@
-import { Model } from 'sequelize';
+import { Model, ModelCtor } from 'sequelize';
 
 export interface ICompany {
   id: string;
@@ -6,10 +6,6 @@ export interface ICompany {
   cnpj: string;
 }
 
-export class Company extends Model<ICompany> {
-  public id: string;
-  public name: string;
-  public cnpj: string;
+export type CompanyModel = Model<ICompany>;
 
-  public toGraphQL(): ICompany;
-}
+export type CompanyCtorModel = ModelCtor<Model<ICompany>>;
