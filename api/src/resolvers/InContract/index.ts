@@ -1,0 +1,1 @@
+export { createInContract } from "./createInContract";
