@@ -61,11 +61,18 @@ type Query {
 }
 
 type Mutation {
+  # User resolvers
   createUser(email: String!, name: String!): User!
+
+  # Payment resolvers
   createPayment(baseCharge: Float!, chargeDate: String!, paymentDate: String): AppliedPayment!
-  createCompany(name: String!, cnpj: String!, segments: [ID!]! , documents: [ID!]!): Company!
-  createClause(text: String!): Clause!
   addPayment(clauseId: ID!, baseCharge: Float!, type: String!, payment_deadline: Int): Payment!
   addIncrement(paymentId: ID!, period: Int, relative_rate: Float!, absolute_rate: Float!): Increment!
+  
+  # Company resolvers
+  createCompany(name: String!, cnpj: String!, segments: [ID!]! , documents: [ID!]!): Company!
+
+  # Contract resolvers
   createContract(party_a: ID!, party_b: ID!, start_date: String!, end_date: String!):Contract!
+  createClause(text: String!): Clause!
 }

@@ -1,5 +1,3 @@
-// import { ApolloError } from 'apollo-server-koa';
-
 import { Context } from "@typings/Context";
 
 interface Args {
@@ -7,8 +5,12 @@ interface Args {
   segment: string;
 }
 
-const cypherQuery = `MATCH p = ((u:User {name: $name}) - [:IN_CONTRACT*2..5] -> (c:Company) - [:COMPANY_SEGMENT] -> (s:Segment {name: $segment}))
-RETURN p as Path;`;
+const cypherQuery = `
+  MATCH 
+    p = ((u:User {name: $name}) - [:IN_CONTRACT*2..5] -> 
+    (c:Company) - [:COMPANY_SEGMENT] -> (s:Segment {name: $segment}))
+  RETURN p as Path;
+`;
 
 export async function getClosestCompanyPathBySegment(
   _: any,

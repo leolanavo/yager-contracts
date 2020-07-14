@@ -7,8 +7,12 @@ interface Args {
   segment: string;
 }
 
-const cypherQuery =
-  "MATCH (u:User {name: $name}) - [:IN_CONTRACT*1..5] -> (c:Company) - [:COMPANY_SEGMENT] -> (s:Segment {name: $segment}) RETURN c.name as Company, MAX(c.rating) as Rating;";
+const cypherQuery = `
+  MATCH 
+    (u:User {name: $name}) - [:IN_CONTRACT*1..5] -> 
+    (c:Company) - [:COMPANY_SEGMENT] -> (s:Segment {name: $segment})
+  RETURN c.name as Company, MAX(c.rating) as Rating;
+`;
 
 export async function getRelatedCompaniesBySegmentWithMoreContracts(
   _: any,

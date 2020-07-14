@@ -1,5 +1,3 @@
-// import { ApolloError } from 'apollo-server-koa';
-
 import { Context } from "@typings/Context";
 
 interface Args {
@@ -7,8 +5,12 @@ interface Args {
   segment: string;
 }
 
-const cypherQuery =
-  "MATCH (u:User {name: $name}) - [:IN_CONTRACT*1..5] -> (c:Company), (c) - [:COMPANY_SEGMENT] -> (s:Segment) return c.name as Company, collect(s.name) as Segments";
+const cypherQuery = `
+  MATCH 
+    (u:User {name: $name}) - [:IN_CONTRACT*1..5] -> (c:Company), 
+    (c) - [:COMPANY_SEGMENT] -> (s:Segment) 
+  RETURN c.name as Company, collect(s.name) as Segments;
+`;
 
 export async function getRelatedCompanies(
   _: any,
