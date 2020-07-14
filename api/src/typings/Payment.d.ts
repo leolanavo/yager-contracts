@@ -6,7 +6,7 @@ export interface Payment {
   _id: string;
   baseCharge: Number,
   type: String,
-  payment_deadline: Number,
+  paymentDeadline: Number,
   increments: IncrementModel[],
 }
 
@@ -14,7 +14,7 @@ export interface PaymentDocument extends Document {
   _id: string;
   baseCharge: Number,
   type: String,
-  payment_deadline: Number,
+  paymentDeadline: Number,
   increments: IncrementModel[],
 }
 

@@ -6,8 +6,8 @@ const Increment: IncrementModel =
   model<IncrementDocument>('Increment', new Schema({
     _id: String,
     period: Number,
-    relative_rate: Number,
-    absolute_rate: Number,
+    relativeRate: Number,
+    absoluteRate: Number,
   }));
 
 export default Increment;
