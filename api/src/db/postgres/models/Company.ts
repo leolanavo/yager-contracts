@@ -1,5 +1,7 @@
 import { Model, DataTypes } from 'sequelize'
 
+import User from '@postgres/models/User';
+import Party from '@postgres/models/Party';
 import postgres from '@postgres/postgres';
 import { ICompany } from "@typings/Company";
 
@@ -40,4 +42,7 @@ Company.init({
   timestamps: false
 });
 
-Company.hasOne(postgres.models.Party);
+Company.hasOne(Party);
+Company.hasMany(User, { as: 'representatives' });
+
+export default Company;
