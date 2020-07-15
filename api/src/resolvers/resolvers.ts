@@ -3,7 +3,7 @@ import { IResolvers } from "apollo-server-koa";
 import { createUser, addRepresentation } from "@resolvers/User";
 import { createCompany } from "@resolvers/Company";
 
-import { createContract } from "@resolvers/Contract";
+import { createContract, addExtension } from "@resolvers/Contract";
 import { createPayment, getPayment } from "@resolvers/AppliedPayment";
 // import { createClause } from "@resolvers/Clause";
 
@@ -22,6 +22,7 @@ const resolvers: IResolvers = {
     createCompany,
     createContract,
     createPayment,
+    addExtension,
     // createClause,
   },
   Query: {

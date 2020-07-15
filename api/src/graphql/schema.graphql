@@ -153,6 +153,6 @@ type Mutation {
 
     **Return:** The updated contract and a Contract data type.
   """
-  addExrension(contractID: ID!, date: String!, newEndDate: String!): Contract!
+  addExtension(contractID: ID!, date: String!, newEndDate: String!): Contract!
   createClause(text: String!): Clause!
 }

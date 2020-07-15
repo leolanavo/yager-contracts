@@ -26,14 +26,17 @@ export async function addExtension(
 
   let contract = await mongo.Contract.findOne({ _id: args.contractID })
 
+
   if (!contract)
     throw new ApolloError(`Contract with id: ${args.contractID} was not found`, "404");
 
 
-  contract = await mongo.Contract.updateOne(
+  await mongo.Contract.updateOne(
     { _id: args.contractID },
     { $push: { extensions: extension } }
   )
+
+  contract = await mongo.Contract.findOne({ _id: args.contractID })
 
   if (!contract)
     throw new ApolloError(`Could not update contract id: ${args.contractID}`, "500");
