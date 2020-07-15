@@ -29,8 +29,8 @@ CREATE TABLE IF NOT EXISTS "represents" (
  );
 
 CREATE TABLE IF NOT EXISTS "in_contract" (
-  id VARCHAR(36) PRIMARY KEY,
-  main_party VARCHAR(36) REFERENCES "parties" (id) ON DELETE SET NULL,
-  secondary_party VARCHAR(36) REFERENCES "parties" (id) ON DELETE SET NULL,
+  "constractId" VARCHAR(36) PRIMARY KEY,
+  "mainParty" VARCHAR(36) REFERENCES "parties" (id) ON DELETE SET NULL,
+  "secondaryParty" VARCHAR(36) REFERENCES "parties" (id) ON DELETE SET NULL,
   CONSTRAINT different_parties CHECK (main_party <> secondary_party)
 );

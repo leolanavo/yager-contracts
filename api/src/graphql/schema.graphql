@@ -33,8 +33,8 @@ type Clause {
 
 type Contract {
   _id: ID!
-  partyA: ID!
-  partyB: ID!
+  mainParty: ID!
+  secondaryParty: ID!
   startDate: String!
   endDate: String!
   extensions: [Extension!]
@@ -132,15 +132,15 @@ type Mutation {
     Create a contract into mongodb, postres and neo4j.
 
     **Arguments:**
-    1. @arg `partyA`: the main party's ID
-    2. @arg `partyB`: the secondary party's ID
+    1. @arg `mainParty`: the main party's ID
+    2. @arg `secondaryParty`: the secondary party's ID
     3. @arg `startDate`: the date which the contract starts to be valid
     4. @arg `endDate`: the date which the contract is no more valid
     4. @arg `clauses`: and array of the complex type clauseInput.
 
     **Return:** The saved contract and a Contract data type.
   """
-  createContract(partyA: ID!, partyB: ID!, startDate: String!, endDate: String!, clauses: [ClauseInput!]!): Contract!
+  createContract(mainParty: ID!, secondaryParty: ID!, startDate: String!, endDate: String!, clauses: [ClauseInput!]!): Contract!
   """
     Add an extension to the validity of a contract, registering a new end date to the contract.
 

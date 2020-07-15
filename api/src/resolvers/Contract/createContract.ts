@@ -1,10 +1,12 @@
 import { Contract } from '@typings/Contract';
 import { Context } from '@typings/Context';
-// import Party from "@postgres/models/Party";
+import Party from "@postgres/models/Party";
+import InContract from "@postgres/models/InContract";
+import { ApolloError } from 'apollo-server-koa';
 
 interface Args {
-  partyA: string;
-  partyB: string;
+  mainParty: string;
+  secondaryParty: string;
   startDate: string;
   endDate: string;
   clauses: {
@@ -40,6 +42,16 @@ export async function createContract(
 
   const _id = uuidv4();
 
+  const mainParty = await Party.findOne({
+    id: args.mainParty,
+  });
+  const secondaryParty = await Party.findOne({
+    id: args.secondaryParty,
+  });
+
+  if (!mainParty || !secondaryParty)
+    throw new ApolloError('Could not find parties', '404');
+
   let clauses: any[] = args.clauses.map(clause => {
     clause.payment.increments = clause.payment.increments.map(inc => ({ _id: uuidv4(), ...inc }));
     return {
@@ -50,8 +62,8 @@ export async function createContract(
 
   const contract: any = {
     _id,
-    partyA: args.partyA,
-    partyB: args.partyB,
+    mainParty: args.mainParty,
+    secondaryParty: args.secondaryParty,
     startDate: args.startDate,
     endDate: args.endDate,
     appliedClauses: clauses.map(clause => ({
@@ -74,18 +86,17 @@ export async function createContract(
 
   await mongo.Clause.insertMany(clauses);
 
-  // const partyA = await Party.findOne({
-  //   id: args.partyA,
-  // });
-  // const partyB = await Party.findOne({
-  //   id: args.partyB,
-  // });
+  const inContract = new InContract();
+  inContract.contractId = _id;
+  inContract.mainParty = mainParty;
+  inContract.secondaryParty = secondaryParty;
+  await InContract.save(inContract);
 
   // TODO: add inContract in postgers
 
   await neo4j.session.run(createInContractCypher, {
-    main_party: args.partyA,
-    secondary_party: args.partyB
+    main_party: args.mainParty,
+    secondary_party: args.secondaryParty
   });
 
   return contract;

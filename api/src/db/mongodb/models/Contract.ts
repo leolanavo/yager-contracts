@@ -5,8 +5,8 @@ import { ContractModel, ContractDocument } from '@typings/Contract';
 const Contract: ContractModel =
   model<ContractDocument>('Contract', new Schema({
     _id: String,
-    partyA: String,
-    partyB: String,
+    mainParty: String,
+    secondaryParty: String,
     startDate: String,
     endDate: String,
     extensions: [{

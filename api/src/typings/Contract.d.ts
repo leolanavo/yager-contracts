@@ -4,8 +4,8 @@ import { AppliedClauseModel } from '@typings/AppliedClause';
 
 export interface Contract {
   _id: string;
-  partyA: string,
-  partyB: string,
+  mainParty: string,
+  secondaryParty: string,
   startDate: string,
   endDate: string,
   extensions: ExtensionModel[],
@@ -15,8 +15,8 @@ export interface Contract {
 
 export interface ContractDocument extends Document {
   _id: string;
-  partyA: string,
-  partyB: string,
+  mainParty: string,
+  secondaryParty: string,
   startDate: string,
   endDate: string,
   extensions: ExtensionModel[],
