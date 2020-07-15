@@ -1,13 +1,26 @@
 type User {
-  _id: ID!
+  id: ID!
+  cpf: String!
   email: String!
   name: String!
+  rg: String!
+  signature: String!
+  party: ID!
+}
+
+type Company {
+  id: ID!
+  name: String!
+  cnpj: String!
+  segments: [String!]!
+  documents: [String!]!
+  party: ID!
 }
 
 type AppliedPayment {
   _id: String!
   baseCharge: Float!
-  chargeDate: String!,
+  chargeDate: String!
   paymentDate: String
 }
 
@@ -48,30 +61,34 @@ type Increment {
   absolute_rate: Float!,
 }
 
-type Company {
-  _id: ID!
-  name: String!
-  cnpj: String!
-  segments: [ID!]!
-  documents: [ID!]!
-}
-
 type Query {
   getPayment(id: ID!): User!
-  getBestRatedCompaniesBySegment(name: String!, segment: String!): String! 
+  getBestRatedCompaniesBySegment(name: String!, segment: String!): Company!
 }
 
 type Mutation {
   # User resolvers
-  createUser(email: String!, name: String!): User!
+  """
+    Create an user by inserting it into postgres and neo4j, also create a party
+    to identify the user in contracts.
+
+    **Arguments:**
+    1. @arg `cpf`: user's cpf, must be unique and a valid cpf
+    2. @arg `email`: user's email, must be unique
+    3. @arg `name`: user's name
+    4. @arg `rg`: user's rg
+
+    **Return:** The saved user and an User data type.
+  """
+  createUser(cpf: String!, email: String!, name: String!, rg: String!): User!
+
+  # Company resolvers
+  createCompany(name: String!, cnpj: String!, segments: [ID!]! , documents: [ID!]!): Company!
 
   # Payment resolvers
   createPayment(baseCharge: Float!, chargeDate: String!, paymentDate: String): AppliedPayment!
   addPayment(clauseId: ID!, baseCharge: Float!, type: String!, payment_deadline: Int): Payment!
   addIncrement(paymentId: ID!, period: Int, relative_rate: Float!, absolute_rate: Float!): Increment!
-  
-  # Company resolvers
-  createCompany(name: String!, cnpj: String!, segments: [ID!]! , documents: [ID!]!): Company!
 
   # Contract resolvers
   createContract(party_a: ID!, party_b: ID!, start_date: String!, end_date: String!): Contract!

@@ -1,23 +1,25 @@
 import { Entity, PrimaryColumn, Column, BaseEntity, OneToOne, JoinColumn } from "typeorm";
 import Party from '@postgres/models/Party';
 
-@Entity({ name: 'companies' })
-class Company extends BaseEntity {
-
+@Entity({ name: 'users' })
+class User extends BaseEntity {
   @PrimaryColumn({ type: "uuid" })
   public id!: string;
 
   @Column({ type: "varchar", unique: true })
-  public cnpj!: string;
+  public cpf!: string;
+
+  @Column({ type: "varchar", unique: true })
+  public email!: string;
+
+  @Column({ type: "varchar" })
+  public rg!: string;
 
   @Column({ type: "varchar", nullable: false })
   public name!: string;
 
-  @Column({ type: "simple-array", default: [] })
-  public segments!: string[];
-
-  @Column({ type: "simple-array", default: [] })
-  public documents!: string[];
+  @Column({ type: "varchar", nullable: true })
+  public signature!: string;
 
   @OneToOne(() => Party)
   @JoinColumn()
@@ -26,13 +28,14 @@ class Company extends BaseEntity {
   public toJSON(): Object {
     return {
       id: this.id,
-      cnpj: this.cnpj,
+      cpf: this.cpf,
+      email: this.email,
+      rg: this.rg,
       name: this.name,
-      segments: this.segments,
-      documents: this.documents,
+      signature: this.signature,
       party: this.party.id,
     }
   }
 }
 
-export default Company;
+export default User;

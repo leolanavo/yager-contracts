@@ -22,12 +22,22 @@ export async function getBestRatedCompaniesBySegment(
   const { neo4j }: Context = context;
   const { name, segment } = args;
 
-  const response = await neo4j.session.run(cypherQuery, {
+  const result = await neo4j.session.run(cypherQuery, {
     name,
     segment,
   });
 
-  console.log(response.records);
-  
-  return "hello";
+  const response = {
+    id: "",
+    cpnj: "",
+    name: "",
+    segments: [],
+    documents: [],
+  };
+
+  result.records.forEach(r => {
+    response.name = r.get('Company');
+  });
+
+  return response;
 }

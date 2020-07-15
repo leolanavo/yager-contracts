@@ -1,4 +1,15 @@
+import { ApolloError } from "apollo-server-koa";
 import { Context } from "@typings/Context";
+
+import User from "@postgres/models/User";
+import Party from "@postgres/models/Party";
+
+interface Args {
+  cpf: string;
+  email: string;
+  name: string;
+  rg: string;
+}
 
 const createUserCypher = `CREATE (:User {
   id: $id, 
@@ -10,26 +21,40 @@ const createUserCypher = `CREATE (:User {
 
 export async function createUser(
   _: any,
-  args: any,
+  args: Args,
   context: Context,
   ___: any
 ): Promise<any> {
-  const { neo4j }: Context = context;
-  const { name, cpf }: any = args;
-  
-  //TODO: Criar na tabela parties do postgres
-  const party_id = 1;
+  const { neo4j, uuidv4 }: Context = context;
+  const { cpf, email, name } = args;
 
-  //TODO: Criar um usuário no postgres
-  const id = 1;
+  const userCheck = await User.findOne({
+    where: [{ cpf }, { email }]
+  });
+
+  if (userCheck)
+    throw new ApolloError(
+      `User with CPF ${cpf} and email ${email} could not be created`,
+      "409"
+    );
+
+  const party = new Party();
+  party.id = uuidv4();
+  await party.save();
+
+  const user = new User();
+  user.id = uuidv4();
+  user.party = party;
+  Object.keys(args).forEach(k => user[k] = args[k]);
+  await User.save(user);
 
   await neo4j.session.run(createUserCypher, {
-    id,
+    id: user.id,
     name,
     cpf,
-    party_id,
+    party_id: party.id,
     rating: 0,
   });
 
-  return "hello";
+  return user.toJSON();
 }

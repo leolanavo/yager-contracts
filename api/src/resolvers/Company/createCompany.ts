@@ -2,6 +2,7 @@ import { ApolloError } from "apollo-server-koa";
 
 import { Context } from "@typings/Context";
 import Company from "@postgres/models/Company";
+import Party from "@postgres/models/Party";
 
 interface Args {
   name: string;
@@ -32,11 +33,8 @@ export async function createCompany(
   context: Context,
   ___: any
 ): Promise<any> {
-  const { postgres, neo4j, uuidv4 }: Context = context;
+  const { neo4j, uuidv4 }: Context = context;
   const { name, cnpj, segments }: Args = args;
-
-  console.log(postgres);
-
 
   const companyCheck = await Company.findOne({
     cnpj: args.cnpj,
@@ -44,43 +42,34 @@ export async function createCompany(
 
   if (companyCheck) throw new ApolloError(`CNPJ ${cnpj} already in use`, "409");
 
-  //TODO: Criar na tabela parties do postgres
-  const party_id = 2;
+  const party = new Party();
+  party.id = uuidv4();
+  await party.save();
 
   const company = new Company();
   company.id = uuidv4();
+  company.party = party;
   Object.keys(args).forEach(k => company[k] = args[k]);
+  await Company.save(company);
 
-  if (!company)
-    throw new ApolloError(
-      `Company with CNPJ ${cnpj} could not be created`,
-      "409"
-    );
-
-  //TODO: Criar nó de company no neo4j
   await neo4j.session.run(createCompanyCypher, {
     id: company.id,
     name,
     cnpj,
-    party_id,
+    party_id: party.id,
     rating: 0,
   });
 
-  for (let i = 0; i < segments.length; i++) {
-    //TODO: Criar segmentos na tabela company_segments
-    //no postgres se não existir
-
-    //TODO: Criar nó de segmentos se precisar e associa ao company
-
+  segments.forEach(async segment => {
     await neo4j.session.run(createSegmentCypher, {
-      segment: segments[i],
+      name: segment,
     });
 
     await neo4j.session.run(createCompanySegmentCypher, {
       id: company.id,
-      segment: segments[i]
+      segment,
     });
-  }
+  });
 
   return company;
 }

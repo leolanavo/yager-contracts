@@ -27,12 +27,11 @@ services:
       - "7687:7687"
       - "7474:7474"
     volumes:
-      - "graph-data:/var/lib/neo4j"
+      - "graph-data:/data"
       - "../db_scripts/neo4j:/usr/src/scripts"
     environment:
       - NEO4J_dbms_default__database=yager
-      - NEO4J_USERNAME=yager
-      - NEO4J_PASSWORD=yager
+      - NEO4J_AUTH=neo4j/yager
   api:
     build:
       context: ..
