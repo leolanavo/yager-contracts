@@ -1,9 +1,7 @@
 import { ApolloError } from "apollo-server-koa";
 
 import { Context } from "@typings/Context";
-import CompanyInterface from "@postgres/models/Company";
-import { CompanyModel, CompanyCtorModel } from "@typings/Company";
-import { PartyModel, PartyCtorModel } from "@typings/Party";
+import Company from "@postgres/models/Company";
 
 interface Args {
   name: string;
@@ -39,30 +37,19 @@ export async function createCompany(
 
   console.log(postgres);
 
-  const Company: CompanyCtorModel = postgres.models.Company;
-  const Party: PartyCtorModel = postgres.models.Party;
 
-  let company: CompanyModel | null = await CompanyInterface.findOne({
-    where: {
-      cnpj,
-    },
+  const companyCheck = await Company.findOne({
+    cnpj: args.cnpj,
   });
 
-  if (company) throw new ApolloError(`CNPJ ${cnpj} already in use`, "409");
+  if (companyCheck) throw new ApolloError(`CNPJ ${cnpj} already in use`, "409");
 
   //TODO: Criar na tabela parties do postgres
   const party_id = 2;
 
-  const party: PartyModel | null = await Party.create({ id: uuidv4() });
-
-  console.log(party?.get('id'));
-
-  company = await Company.create({
-    id: uuidv4(),
-    name,
-    cnpj,
-    party_id,
-  });
+  const company = new Company();
+  company.id = uuidv4();
+  Object.keys(args).forEach(k => company[k] = args[k]);
 
   if (!company)
     throw new ApolloError(
@@ -70,11 +57,9 @@ export async function createCompany(
       "409"
     );
 
-  console.log(company);
-
   //TODO: Criar nó de company no neo4j
   await neo4j.session.run(createCompanyCypher, {
-    id: company.get('id'),
+    id: company.id,
     name,
     cnpj,
     party_id,
@@ -92,10 +77,10 @@ export async function createCompany(
     });
 
     await neo4j.session.run(createCompanySegmentCypher, {
-      id: company.get('id'),
+      id: company.id,
       segment: segments[i]
     });
   }
 
-  return company.toJSON();
+  return company;
 }

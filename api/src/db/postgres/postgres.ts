@@ -1,11 +1,10 @@
-import * as pg from 'pg';
-import { Sequelize } from 'sequelize'
+import { createConnection } from "typeorm";
 
-const instance = new Sequelize(
-  process.env.POSTGRES_URL as string,
-  {
-    dialectModule: pg
-  }
-);
+import Company from "@postgres/models/Company";
 
-export default instance;
+export default createConnection({
+  type: 'postgres',
+  url: process.env.POSTGRES_URL,
+  logging: true,
+  entities: [Company]
+});

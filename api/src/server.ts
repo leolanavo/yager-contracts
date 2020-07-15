@@ -11,6 +11,7 @@ import { makeExecutableSchema } from 'graphql-tools';
 import uuidv4 from 'uuid/v4';
 
 import postgres from '@postgres/postgres'
+import "reflect-metadata";
 import neo4j from '@neo4j/neo4j';
 import mongodb from '@mongodb/mongodb';
 import resolvers from '@resolvers/resolvers';
@@ -21,23 +22,27 @@ const typeDefs: string = importSchema(`src/graphql/schema.graphql`);
 const schema: GraphQLSchema = makeExecutableSchema({ typeDefs, resolvers });
 const port: number = process.env.PORT ? +process.env.PORT : 3000;
 
-const context: ServerContextFunction = ({ ctx }: Hash): Context => ({
-  ctx,
-  uuidv4,
-  mongodb,
-  postgres,
-  neo4j,
-});
+async function server() {
+  const context: ServerContextFunction = async ({ ctx }: Hash): Promise<Context> => ({
+    ctx,
+    uuidv4,
+    mongodb,
+    postgres: await postgres,
+    neo4j,
+  });
 
-const server: ApolloServer = new ApolloServer({
-  schema,
-  context,
-});
+  const server: ApolloServer = new ApolloServer({
+    schema,
+    context: await context,
+  });
 
-const app: Koa = new Koa();
-app.use(Cors());
-server.applyMiddleware({ app });
+  const app: Koa = new Koa();
+  app.use(Cors());
+  server.applyMiddleware({ app });
 
-app.listen({ port }, () => {
-  console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`);
-});
+  app.listen({ port }, () => {
+    console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`);
+  });
+}
+
+server();

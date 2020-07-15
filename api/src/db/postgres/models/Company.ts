@@ -1,48 +1,16 @@
-import { Model, DataTypes } from 'sequelize'
+import { Entity, PrimaryColumn, Column, BaseEntity } from "typeorm";
 
-import User from '@postgres/models/User';
-import Party from '@postgres/models/Party';
-import postgres from '@postgres/postgres';
-import { ICompany } from "@typings/Company";
+@Entity({ name: 'companies' })
+class Company extends BaseEntity {
 
-class Company extends Model<ICompany> {
+  @PrimaryColumn({ type: "uuid" })
   public id!: string;
-  public name!: string;
+
+  @Column({ type: "varchar", unique: true })
   public cnpj!: string;
-  public segments!: string[];
-  public documents!: string[];
+
+  @Column({ type: "varchar", nullable: false })
+  public name!: string;
 }
-
-Company.init({
-  id: {
-    type: DataTypes.UUIDV4,
-    primaryKey: true,
-  },
-  cnpj: {
-    type: DataTypes.STRING,
-    unique: true,
-    allowNull: false,
-  },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  segments: {
-    type: DataTypes.ARRAY(DataTypes.STRING),
-    defaultValue: [],
-    allowNull: false,
-  },
-  documents: {
-    type: DataTypes.ARRAY(DataTypes.STRING),
-    defaultValue: [],
-    allowNull: false,
-  }
-}, {
-  sequelize: postgres,
-  timestamps: false
-});
-
-Company.hasOne(Party);
-Company.hasMany(User, { as: 'representatives' });
 
 export default Company;
