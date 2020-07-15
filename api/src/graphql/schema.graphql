@@ -58,6 +58,7 @@ type Company {
 
 type Query {
   getPayment(id: ID!): User!
+  getBestRatedCompaniesBySegment(name: String!, segment: String!): String! 
 }
 
 type Mutation {

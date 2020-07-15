@@ -27,5 +27,7 @@ export async function getBestRatedCompaniesBySegment(
     segment,
   });
 
-  return response.records;
+  console.log(response.records);
+  
+  return "hello";
 }

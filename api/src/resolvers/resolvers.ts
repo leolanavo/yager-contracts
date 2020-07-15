@@ -4,13 +4,14 @@ import { createCompany } from "@resolvers/Company";
 import { createPayment, getPayment } from "@resolvers/AppliedPayment";
 import { createClause } from "@resolvers/Clause";
 import { createUser } from "@resolvers/User";
-// import {
-//   getBestRatedCompaniesBySegment,
+
+import {
+  getBestRatedCompaniesBySegment,
 //   getClosestCompanyPathBySegment,
 //   getRelatedCompanies,
 //   getRelatedCompaniesBySegment,
 //   getRelatedCompaniesBySegmentWithMoreContracts,
-// } from "@resolvers/Recommendation";
+} from "@resolvers/Recommendation";
 
 const resolvers: IResolvers = {
   Mutation: {
@@ -21,7 +22,7 @@ const resolvers: IResolvers = {
   },
   Query: {
     getPayment,
-    // getBestRatedCompaniesBySegment,
+    getBestRatedCompaniesBySegment,
     // getClosestCompanyPathBySegment,
     // getRelatedCompanies,
     // getRelatedCompaniesBySegment,
