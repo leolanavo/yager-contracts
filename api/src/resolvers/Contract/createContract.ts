@@ -1,5 +1,6 @@
 import { Contract } from '@typings/Contract';
 import { Context } from '@typings/Context';
+import Party from "@postgres/models/Party";
 
 interface Args {
   partyA: string;
@@ -13,7 +14,7 @@ interface Args {
     text: string;
     payment: {
       baseCharge: number;
-      type: string;
+      kind: string;
       paymentDeadline: number;
       increments: {
         period: number;
@@ -24,17 +25,22 @@ interface Args {
   }[]
 }
 
+const createInContractCypher = `MATCH (a), (b)
+WHERE a.party_id = $main_party AND b.party_id = $secondary_party
+CREATE (a)-[r:IN_CONTRACT]->(b)
+RETURN type(r);`;
+
 export async function createContract(
   _: any,
   args: Args,
   context: Context,
   ___: any
 ): Promise<Contract> {
-  const { mongodb: mongo, uuidv4 }: Context = context;
+  const { mongodb: mongo, neo4j, uuidv4 }: Context = context;
 
   const _id = uuidv4();
 
-  const clauses: any[] = args.clauses.map(clause => {
+  let clauses: any[] = args.clauses.map(clause => {
     clause.payment.increments = clause.payment.increments.map(inc => ({ _id: uuidv4(), ...inc }));
     return {
       _id: uuidv4(),
@@ -58,21 +64,27 @@ export async function createContract(
     })),
   };
 
-  console.log("First");
-  await mongo.Contract.insertMany([contract]);
-
-  const clauses2 = clauses.map(clause => ({
+  clauses = clauses.map(clause => ({
     _id: clause._id,
     text: clause.text,
     payment: { ...clause.payment }
   }));
 
-  console.log("clauses");
-  console.log(clauses2);
-  console.log("clauses");
+  mongo.Clause.insertMany(clauses);
 
-   mongo.Clause.insertMany(clauses2);
-  console.log("second");
+  const partyA = await Party.findOne({
+    id: args.partyA,
+  });
+  const partyB = await Party.findOne({
+    id: args.partyB,
+  });
+
+  // TODO: add inContract in postgers
+
+  await neo4j.session.run(createInContractCypher, {
+    main_party: args.partyA,
+    secondary_party: args.partyB
+  });
 
   return contract;
 }

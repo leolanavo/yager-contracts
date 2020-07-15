@@ -9,7 +9,7 @@ const Clause: ClauseModel =
     payment: {
       _id: String,
       baseCharge: Number,
-      fashion: String,
+      kind: String,
       paymentDeadline: Number,
       increments: [{
         _id: String,

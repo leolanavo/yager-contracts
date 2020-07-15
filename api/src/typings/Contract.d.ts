@@ -10,6 +10,7 @@ export interface Contract {
   endDate: string,
   extensions: ExtensionModel[],
   appliedClauses: AppliedClauseModel[]
+  terminatedBy: String
 }
 
 export interface ContractDocument extends Document {
@@ -20,6 +21,7 @@ export interface ContractDocument extends Document {
   endDate: string,
   extensions: ExtensionModel[],
   appliedClauses: AppliedClauseModel[]
+  terminatedBy: String
 }
 
 export declare type ContractModel = Model<ContractDocument>;

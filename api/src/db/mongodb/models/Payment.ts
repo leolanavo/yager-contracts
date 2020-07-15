@@ -6,7 +6,7 @@ const Payment: PaymentModel =
   model<PaymentDocument>('Payment', new Schema({
     _id: String,
     baseCharge: Number,
-    type: String,
+    kind: String,
     paymentDeadline: Number,
     increments: [{
       _id: String,

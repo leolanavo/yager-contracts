@@ -64,7 +64,7 @@ type Extension {
 type Payment {
   _id: ID!
   baseCharge: Float!
-  fashion: String!
+  kind: String!
   paymentDeadline: Int
   increments: [Increment]
 }
@@ -86,7 +86,7 @@ input ClauseInput {
 
 input PaymentInput {
   baseCharge: Float!
-  fashion: String!
+  kind: String!
   paymentDeadline: Int!
   increments: [IncrementInput]
 }
@@ -127,6 +127,18 @@ type Mutation {
   addIncrement(paymentId: ID!, period: Int, relativeRate: Float!, absoluteRate: Float!): Increment!
 
   # Contract resolvers
+  """
+    Create a contract into mongodb, postres and neo4j.
+
+    **Arguments:**
+    1. @arg `partyA`: the main party's ID
+    2. @arg `partyB`: the secondary party's ID
+    3. @arg `startDate`: the date which the contract starts to be valid
+    4. @arg `endDate`: the date which the contract is no more valid
+    4. @arg `clauses`: and array of the complex type clauseInput.
+
+    **Return:** The saved contract and a Contract data type.
+  """
   createContract(partyA: ID!, partyB: ID!, startDate: String!, endDate: String!, clauses: [ClauseInput!]!): Contract!
   createClause(text: String!): Clause!
 }

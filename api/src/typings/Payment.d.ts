@@ -5,7 +5,7 @@ import { IncrementModel } from '@typings/Increment'
 export interface Payment {
   _id: string;
   baseCharge: number,
-  type: string,
+  kind: string,
   paymentDeadline: number,
   increments: IncrementModel[],
 }
@@ -13,7 +13,7 @@ export interface Payment {
 export interface PaymentDocument extends Document {
   _id: string;
   baseCharge: number,
-  type: string,
+  kind: string,
   paymentDeadline: number,
   increments: IncrementModel[],
 }
