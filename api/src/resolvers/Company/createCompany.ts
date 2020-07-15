@@ -44,6 +44,7 @@ export async function createCompany(
 
   const party = new Party();
   party.id = uuidv4();
+  party.entity = "company";
   await party.save();
 
   const company = new Company();
