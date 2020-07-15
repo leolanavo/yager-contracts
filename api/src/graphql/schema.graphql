@@ -32,6 +32,7 @@ type Clause {
 }
 
 type Contract {
+  _id: ID!
   partyA: ID!
   partyB: ID!
   startDate: String!
@@ -140,5 +141,16 @@ type Mutation {
     **Return:** The saved contract and a Contract data type.
   """
   createContract(partyA: ID!, partyB: ID!, startDate: String!, endDate: String!, clauses: [ClauseInput!]!): Contract!
+  """
+    Add an extension to the validity of a contract, registering a new end date to the contract.
+
+    **Arguments:**
+    1. @arg `contractID`: the ID of the contract to be extended
+    2. @arg `date`: the date this extension is applied
+    3. @arg `newEndDate`: the date which the contract is still valid until
+
+    **Return:** The updated contract and a Contract data type.
+  """
+  addExrension(contractID: ID!, date: String!, newEndDate: String!): Contract!
   createClause(text: String!): Clause!
 }

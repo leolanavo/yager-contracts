@@ -1,6 +1,6 @@
 import { Contract } from '@typings/Contract';
 import { Context } from '@typings/Context';
-import Party from "@postgres/models/Party";
+// import Party from "@postgres/models/Party";
 
 interface Args {
   partyA: string;
@@ -64,20 +64,22 @@ export async function createContract(
     })),
   };
 
+  await mongo.Contract.insertMany([contract]);
+
   clauses = clauses.map(clause => ({
     _id: clause._id,
     text: clause.text,
     payment: { ...clause.payment }
   }));
 
-  mongo.Clause.insertMany(clauses);
+  await mongo.Clause.insertMany(clauses);
 
-  const partyA = await Party.findOne({
-    id: args.partyA,
-  });
-  const partyB = await Party.findOne({
-    id: args.partyB,
-  });
+  // const partyA = await Party.findOne({
+  //   id: args.partyA,
+  // });
+  // const partyB = await Party.findOne({
+  //   id: args.partyB,
+  // });
 
   // TODO: add inContract in postgers
 
