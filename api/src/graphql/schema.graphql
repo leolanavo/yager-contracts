@@ -6,6 +6,7 @@ type User {
   rg: String!
   signature: String!
   party: ID!
+  companies: [Company!]!
 }
 
 type Company {
@@ -118,6 +119,7 @@ type Mutation {
     **Return:** The saved user and an User data type.
   """
   createUser(cpf: String!, email: String!, name: String!, rg: String!): User!
+  addRepresentation(userId: ID!, companyId: ID!): User!
 
   # Company resolvers
   createCompany(name: String!, cnpj: String!, segments: [ID!]! , documents: [ID!]!): Company!

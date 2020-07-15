@@ -1,4 +1,5 @@
-import { Entity, PrimaryColumn, Column, BaseEntity, OneToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryColumn, Column, BaseEntity, OneToOne, JoinColumn, ManyToMany } from "typeorm";
+import User from '@postgres/models/User';
 import Party from '@postgres/models/Party';
 
 @Entity({ name: 'companies' })
@@ -22,6 +23,9 @@ class Company extends BaseEntity {
   @OneToOne(() => Party)
   @JoinColumn()
   public party!: Party;
+
+  @ManyToMany(() => User)
+  public representatives!: User[];
 
   public toJSON(): Object {
     return {

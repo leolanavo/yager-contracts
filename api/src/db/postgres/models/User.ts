@@ -1,5 +1,6 @@
-import { Entity, PrimaryColumn, Column, BaseEntity, OneToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryColumn, Column, BaseEntity, OneToOne, JoinColumn, ManyToMany } from 'typeorm';
 import Party from '@postgres/models/Party';
+import Company from '@postgres/models/Company';
 
 @Entity({ name: 'users' })
 class User extends BaseEntity {
@@ -25,7 +26,15 @@ class User extends BaseEntity {
   @JoinColumn()
   public party!: Party;
 
+  @ManyToMany(() => Company)
+  @JoinColumn()
+  public companies!: Company[];
+
   public toJSON(): Object {
+    const companies: Object[] = this.companies
+      ? this.companies.map(c => c.toJSON())
+      : [];
+
     return {
       id: this.id,
       cpf: this.cpf,
@@ -34,6 +43,7 @@ class User extends BaseEntity {
       name: this.name,
       signature: this.signature,
       party: this.party.id,
+      companies,
     }
   }
 }

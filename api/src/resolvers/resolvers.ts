@@ -1,6 +1,6 @@
 import { IResolvers } from "apollo-server-koa";
 
-import { createUser } from "@resolvers/User";
+import { createUser, addRepresentation } from "@resolvers/User";
 import { createCompany } from "@resolvers/Company";
 
 import { createContract } from "@resolvers/Contract";
@@ -18,6 +18,7 @@ import {
 const resolvers: IResolvers = {
   Mutation: {
     createUser,
+    addRepresentation,
     createCompany,
     createContract,
     createPayment,
