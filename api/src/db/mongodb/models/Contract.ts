@@ -21,8 +21,8 @@ const Contract: ContractModel =
       numberNotifications: Number,
       rescissory: Boolean,
       clauseID: String
-    }]
-
+    }],
+    terminatedBy: String
   }));
 
 export default Contract;

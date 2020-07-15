@@ -9,13 +9,13 @@ const Clause: ClauseModel =
     payment: {
       _id: String,
       baseCharge: Number,
-      type: String,
-      payment_deadline: Number,
+      fashion: String,
+      paymentDeadline: Number,
       increments: [{
         _id: String,
         period: Number,
-        relative_rate: Number,
-        absolute_rate: Number,
+        relativeRate: Number,
+        absoluteRate: Number,
       }]
     },
     references: [String]

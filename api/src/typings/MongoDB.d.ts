@@ -6,7 +6,6 @@ import { ContractModel } from 'src/typings/Contract';
 import { ExtensionModel } from 'src/typings/Extension';
 import { AppliedClauseModel } from 'src/typings/AppliedClause';
 import { NotificationModel } from 'src/typings/Notification';
-import { Notification } from 'neo4j-driver';
 
 export interface MongoDBInterface {
   AppliedPayment: AppliedPaymentModel;

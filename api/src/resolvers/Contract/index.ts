@@ -1,0 +1,1 @@
+export { createContract } from '@resolvers/Contract/createContract';
