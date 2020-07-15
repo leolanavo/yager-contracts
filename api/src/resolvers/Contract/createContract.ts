@@ -92,8 +92,6 @@ export async function createContract(
   inContract.secondaryParty = secondaryParty;
   await InContract.save(inContract);
 
-  // TODO: add inContract in postgers
-
   await neo4j.session.run(createInContractCypher, {
     main_party: args.mainParty,
     secondary_party: args.secondaryParty
