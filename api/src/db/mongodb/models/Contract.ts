@@ -22,7 +22,8 @@ const Contract: ContractModel =
       rescissory: Boolean,
       clauseID: String
     }],
-    terminatedBy: String
+    terminatedBy: String,
+    terminatedDate: String
   }));
 
 export default Contract;

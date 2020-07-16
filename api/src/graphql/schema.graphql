@@ -41,6 +41,7 @@ type Contract {
   extensions: [Extension!]
   appliedClauses: [AppliedClause!]
   terminatedBy: String
+  terminatedDate: String
 }
 
 type AppliedClause {

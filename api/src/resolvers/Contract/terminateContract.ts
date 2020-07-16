@@ -22,7 +22,7 @@ export async function terminateContract(
   });
 
   const contract = await mongo.Contract.findOne({
-    id: contractID
+    _id: contractID
   });
 
   if (!party)
@@ -30,6 +30,9 @@ export async function terminateContract(
 
   if (!contract)
     throw new ApolloError(`Contract with id ${contractID} could not be found`, '404');
+
+  if (contract.terminatedBy)
+    throw new ApolloError(`Contract with id ${contractID} is already terminated`, '422');
 
   if (partyID !== contract.mainParty && partyID !== contract.secondaryParty)
     throw new ApolloError(
@@ -47,6 +50,7 @@ export async function terminateContract(
   // });
 
   contract.terminatedBy = partyID;
+  contract.terminatedDate = Date.now().toString();
   await contract.save();
 
   return contract;
