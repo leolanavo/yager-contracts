@@ -6,7 +6,7 @@ import Party from "@postgres/models/Party";
 import { Contract } from '@typings/Contract';
 import { ClauseInput } from '@typings/Clause';
 
-import { inputToClause, clauseToAppliedClause } from 'src/utils/clausesTransforms'
+import { inputToClause, clauseToAppliedClause } from '@utils/clausesTransforms'
 import uuid from 'uuid';
 
 interface Args {

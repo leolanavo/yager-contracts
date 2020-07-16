@@ -123,7 +123,6 @@ type Mutation {
 
   # Company resolvers
   createCompany(name: String!, cnpj: String!, segments: [ID!]! , documents: [ID!]!): Company!
-  add
 
   # Payment resolvers
   createPayment(baseCharge: Float!, chargeDate: String!, paymentDate: String): AppliedPayment!
@@ -154,6 +153,16 @@ type Mutation {
 
     **Return:** The updated contract and a Contract data type.
   """
-  addExrension(contractID: ID!, date: String!, newEndDate: String!): Contract!
-  createClause(text: String!): Clause!
+  addExtension(contractID: ID!, date: String!, newEndDate: String!): Contract!
+  """
+    Add an additional clause to a contract, registering the date when it became active.
+
+    **Arguments:**
+    1. @arg `clause`: The ClauseInput object that defines the new clause
+    2. @arg `contractID`: the ID of the contract to be extended
+    3. @arg `startDate`: the date this clause counts as part of the contract
+
+    **Return:** The updated contract and a Contract data type.
+  """
+  addClause(clause: ClauseInput!, contractID: ID!, startDate: String!): Contract!
 }

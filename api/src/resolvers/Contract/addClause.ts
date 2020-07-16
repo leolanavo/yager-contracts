@@ -2,10 +2,10 @@ import { ApolloError } from 'apollo-server-koa';
 import { Context } from '@typings/Context';
 
 import { ClauseInput } from '@typings/Clause';
-import { inputToClause, clauseToAppliedClause } from 'src/utils/clausesTransforms';
+import { inputToClause, clauseToAppliedClause } from '@utils/clausesTransforms';
 
 interface Args {
-  contractId: string;
+  contractID: string;
   startDate: string;
   clause: ClauseInput;
 }
@@ -17,23 +17,23 @@ export async function addClause(
   ____: any
 ): Promise<any> {
   const { mongodb: mongo, uuidv4 } = context;
-  const { contractId, clause, startDate } = args;
+  const { contractID, clause, startDate } = args;
 
   const contract = await mongo.Contract.findOne({
-    _id: contractId
+    _id: contractID
   });
 
   if (!contract)
-    throw new ApolloError(`Contract with id ${contractId}`, '404');
+    throw new ApolloError(`Contract with id ${contractID}`, '404');
 
   const finalClause = inputToClause(clause, uuidv4);
 
   await mongo.Clause.insertMany([finalClause]);
 
   await mongo.Contract.updateOne(
-    { _id: contractId },
-    { $push: { appliedClauses: clauseToAppliedClause(clause, uuidv4, startDate) } }
+    { _id: contractID },
+    { $push: { appliedClauses: clauseToAppliedClause(finalClause, uuidv4, startDate) } }
   );
 
-  return await mongo.Contract.findOne({ _id: contractId });
+  return await mongo.Contract.findOne({ _id: contractID });
 }

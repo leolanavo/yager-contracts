@@ -53,6 +53,7 @@
     "@mongodb": "dist/db/mongodb",
     "@postgres": "dist/db/postgres",
     "@neo4j": "dist/db/neo4j",
-    "@resolvers": "dist/resolvers"
+    "@resolvers": "dist/resolvers",
+    "@utils": "dist/utils"
   }
 }
