@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS "companies" (
 );
 
 CREATE TABLE IF NOT EXISTS "represents" (
-  userId VARCHAR(36) REFERENCES "users" (id) ON DELETE CASCADE, 
+  userId VARCHAR(36) REFERENCES "users" (id) ON DELETE CASCADE,
   companyId VARCHAR(36) REFERENCES "companies" (id) ON DELETE CASCADE
  );
 
@@ -32,5 +32,5 @@ CREATE TABLE IF NOT EXISTS "in_contract" (
   "constractId" VARCHAR(36) PRIMARY KEY,
   "mainParty" VARCHAR(36) REFERENCES "parties" (id) ON DELETE SET NULL,
   "secondaryParty" VARCHAR(36) REFERENCES "parties" (id) ON DELETE SET NULL,
-  CONSTRAINT different_parties CHECK (main_party <> secondary_party)
+  CONSTRAINT different_parties CHECK ("mainParty" <> "secondaryParty")
 );
