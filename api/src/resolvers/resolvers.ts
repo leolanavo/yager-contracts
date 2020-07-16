@@ -5,6 +5,7 @@ import { createCompany } from "@resolvers/Company";
 
 import { createContract, addExtension, addClause, terminateContract } from "@resolvers/Contract";
 import { createPayment, getPayment } from "@resolvers/AppliedPayment";
+import { addNotification } from '@resolvers/AppliedClause';
 
 import {
   getBestRatedCompanyBySegment,
@@ -23,6 +24,7 @@ const resolvers: IResolvers = {
     addClause,
     addExtension,
     terminateContract,
+    addNotification,
     createPayment,
   },
   Query: {

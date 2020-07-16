@@ -1,5 +1,5 @@
 import { Document, Model } from 'mongoose';
-import { NotificationModel } from '@typings/Notification';
+import { Notification, NotificationDocument } from '@typings/Notification';
 
 export interface AppliedClause {
   _id: string;
@@ -8,7 +8,7 @@ export interface AppliedClause {
   numberNotifications: number,
   rescissory: boolean,
   clauseID: string,
-  notifications: NotificationModel[]
+  notifications: Notification[]
 }
 
 export interface AppliedClauseDocument extends Document {
@@ -18,7 +18,7 @@ export interface AppliedClauseDocument extends Document {
   numberNotifications: number,
   rescissory: boolean,
   clauseID: string,
-  notifications: NotificationModel[]
+  notifications: NotificationDocument[]
 }
 
 export declare type AppliedClauseModel = Model<AppliedClauseDocument>;
