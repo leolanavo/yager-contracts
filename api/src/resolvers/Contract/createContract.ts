@@ -52,6 +52,7 @@ export async function createContract(
   if (!mainParty || !secondaryParty)
     throw new ApolloError('Could not find parties', '404');
 
+
   let clauses: any[] = args.clauses.map(clause => {
     clause.payment.increments = clause.payment.increments.map(inc => ({ _id: uuidv4(), ...inc }));
     return {
@@ -91,6 +92,17 @@ export async function createContract(
   inContract.mainParty = mainParty;
   inContract.secondaryParty = secondaryParty;
   await InContract.save(inContract);
+
+  if (!mainParty.contractsAsMain)
+    mainParty.contractsAsMain = []
+
+  if (!secondaryParty.contractsAsSecondary)
+    secondaryParty.contractsAsSecondary = []
+
+  mainParty.contractsAsMain.push(inContract);
+  await Party.save(mainParty);
+  secondaryParty.contractsAsSecondary.push(inContract);
+  await Party.save(secondaryParty);
 
   await neo4j.session.run(createInContractCypher, {
     main_party: args.mainParty,

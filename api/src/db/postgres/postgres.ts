@@ -9,5 +9,6 @@ export default createConnection({
   type: 'postgres',
   url: process.env.POSTGRES_URL,
   logging: true,
+  synchronize: true,
   entities: [Company, User, Party, InContract]
 });

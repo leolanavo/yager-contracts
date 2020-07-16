@@ -1,5 +1,8 @@
 CREATE TABLE IF NOT EXISTS "parties" (
-  id VARCHAR(36) PRIMARY KEY
+  id VARCHAR(36) PRIMARY KEY,
+  entity VARCHAR(10) NOT NULL,
+  "contractsAsMainContractId" TEXT,
+  "contractsAsSecondaryContractId" TEXT
 );
 
 CREATE TABLE IF NOT EXISTS "users" (
@@ -29,7 +32,7 @@ CREATE TABLE IF NOT EXISTS "represents" (
  );
 
 CREATE TABLE IF NOT EXISTS "in_contract" (
-  "constractId" VARCHAR(36) PRIMARY KEY,
+  "contractId" VARCHAR(36) PRIMARY KEY,
   "mainParty" VARCHAR(36) REFERENCES "parties" (id) ON DELETE SET NULL,
   "secondaryParty" VARCHAR(36) REFERENCES "parties" (id) ON DELETE SET NULL,
   CONSTRAINT different_parties CHECK ("mainParty" <> "secondaryParty")
