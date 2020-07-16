@@ -1,30 +1,20 @@
-import { Contract } from '@typings/Contract';
-import { Context } from '@typings/Context';
-import Party from "@postgres/models/Party";
-import InContract from "@postgres/models/InContract";
 import { ApolloError } from 'apollo-server-koa';
+import { Context } from '@typings/Context';
+
+import InContract from "@postgres/models/InContract";
+import Party from "@postgres/models/Party";
+import { Contract } from '@typings/Contract';
+import { ClauseInput } from '@typings/Clause';
+
+import { inputToClause, clauseToAppliedClause } from 'src/utils/clausesTransforms'
+import uuid from 'uuid';
 
 interface Args {
   mainParty: string;
   secondaryParty: string;
   startDate: string;
   endDate: string;
-  clauses: {
-    delayTolerance: number;
-    numberNotifications: number;
-    rescissory: boolean;
-    text: string;
-    payment: {
-      baseCharge: number;
-      kind: string;
-      paymentDeadline: number;
-      increments: {
-        period: number;
-        relativeRate: number;
-        absoluteRate: number;
-      }[];
-    };
-  }[]
+  clauses: ClauseInput[];
 }
 
 const createInContractCypher = `MATCH (a), (b)
@@ -38,7 +28,7 @@ export async function createContract(
   context: Context,
   ___: any
 ): Promise<Contract> {
-  const { mongodb: mongo, neo4j, uuidv4 }: Context = context;
+  const { mongodb: mongo, neo4j, uuidv4 } = context;
 
   const _id = uuidv4();
 
@@ -52,14 +42,7 @@ export async function createContract(
   if (!mainParty || !secondaryParty)
     throw new ApolloError('Could not find parties', '404');
 
-
-  let clauses: any[] = args.clauses.map(clause => {
-    clause.payment.increments = clause.payment.increments.map(inc => ({ _id: uuidv4(), ...inc }));
-    return {
-      _id: uuidv4(),
-      ...clause
-    }
-  });
+  let clauses: any[] = args.clauses.map(clause => inputToClause(clause, uuidv4));
 
   const contract: any = {
     _id,
@@ -67,14 +50,7 @@ export async function createContract(
     secondaryParty: args.secondaryParty,
     startDate: args.startDate,
     endDate: args.endDate,
-    appliedClauses: clauses.map(clause => ({
-      _id: uuidv4(),
-      date: args.startDate,
-      delayTolerance: clause.delayTolerance,
-      numberNotifications: clause.numberNotifications,
-      rescissory: clause.rescissory,
-      clauseID: clause._id
-    })),
+    appliedClauses: clauses.map(c => clauseToAppliedClause(c, uuid, args.startDate)),
   };
 
   await mongo.Contract.insertMany([contract]);

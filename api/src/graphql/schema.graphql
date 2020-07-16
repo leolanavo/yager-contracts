@@ -123,6 +123,7 @@ type Mutation {
 
   # Company resolvers
   createCompany(name: String!, cnpj: String!, segments: [ID!]! , documents: [ID!]!): Company!
+  add
 
   # Payment resolvers
   createPayment(baseCharge: Float!, chargeDate: String!, paymentDate: String): AppliedPayment!
@@ -153,6 +154,6 @@ type Mutation {
 
     **Return:** The updated contract and a Contract data type.
   """
-  addExtension(contractID: ID!, date: String!, newEndDate: String!): Contract!
+  addExrension(contractID: ID!, date: String!, newEndDate: String!): Contract!
   createClause(text: String!): Clause!
 }
