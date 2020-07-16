@@ -7,11 +7,11 @@ import { createContract, addExtension, addClause, terminateContract } from "@res
 import { createPayment, getPayment } from "@resolvers/AppliedPayment";
 
 import {
-  getBestRatedCompaniesBySegment,
-  //   getClosestCompanyPathBySegment,
-  //   getRelatedCompanies,
-  //   getRelatedCompaniesBySegment,
-  //   getRelatedCompaniesBySegmentWithMoreContracts,
+  getBestRatedCompanyBySegment,
+  getClosestCompanyPathBySegment,
+  getRelatedCompanies,
+  getRelatedCompaniesBySegment,
+  getRelatedCompanyBySegmentWithMoreContracts,
 } from "@resolvers/Recommendation";
 
 const resolvers: IResolvers = {
@@ -27,11 +27,11 @@ const resolvers: IResolvers = {
   },
   Query: {
     getPayment,
-    getBestRatedCompaniesBySegment,
-    // getClosestCompanyPathBySegment,
-    // getRelatedCompanies,
-    // getRelatedCompaniesBySegment,
-    // getRelatedCompaniesBySegmentWithMoreContracts,
+    getBestRatedCompanyBySegment,
+    getClosestCompanyPathBySegment,
+    getRelatedCompanies,
+    getRelatedCompaniesBySegment,
+    getRelatedCompanyBySegmentWithMoreContracts,
   },
 };
 

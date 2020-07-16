@@ -1,5 +1,6 @@
 export { getRelatedCompanies } from "./getRelatedCompanies";
-export { getRelatedCompaniesBySegment } from "./getRelatedCompanieBySegment";
-export { getRelatedCompaniesBySegmentWithMoreContracts } from "./getRelatedCompaniesBySegmentWithMoreContracts";
-export { getBestRatedCompaniesBySegment } from "./getBestRatedCompaniesBySegment";
+export { getRelatedCompaniesBySegment } from "./getRelatedCompaniesBySegment";
+export { getRelatedCompanyBySegmentWithMoreContracts } from "./getRelatedCompanyBySegmentWithMoreContracts";
+export { getBestRatedCompanyBySegment } from "./getBestRatedCompanyBySegment";
 export { getClosestCompanyPathBySegment } from "./getClosestCompanyPathBySegment";
+

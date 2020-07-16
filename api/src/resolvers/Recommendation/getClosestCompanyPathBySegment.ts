@@ -21,10 +21,25 @@ export async function getClosestCompanyPathBySegment(
   const { neo4j }: Context = context;
   const { name, segment } = args;
 
-  const response = await neo4j.session.run(cypherQuery, {
+  const result = await neo4j.session.run(cypherQuery, {
     name,
     segment,
   });
 
-  return response.records;
+  console.log("\n\n\ngetClosestCompanyPathBySegment");
+  console.log(result.records);
+
+  const response = [] as any;
+
+  result.records.forEach((r) => {
+    const path = r.get("Path");
+
+    path.segments.forEach((segment) => {
+      const node = segment.start;
+
+      response.push(node.properties.name);
+    });
+  });
+
+  return response;
 }
