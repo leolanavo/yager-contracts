@@ -102,6 +102,16 @@ input IncrementInput {
 
 type Query {
   getPayment(id: ID!): User!
+  """
+  Get contracted with provided ID
+
+  **Arguments:**
+  1. @arg `contractID`: desired contract ID
+
+  **Return:** Contract with the given ID
+  """
+
+  getContract(contractID: ID!): Contract!
 
   # Recommendation Queries
   """

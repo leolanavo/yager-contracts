@@ -3,7 +3,13 @@ import { IResolvers } from "apollo-server-koa";
 import { createUser, addRepresentation } from "@resolvers/User";
 import { createCompany } from "@resolvers/Company";
 
-import { createContract, addExtension, addClause, terminateContract } from "@resolvers/Contract";
+import {
+  createContract,
+  addExtension,
+  addClause,
+  terminateContract,
+  getContract
+} from "@resolvers/Contract";
 import { createPayment, getPayment } from "@resolvers/AppliedPayment";
 import { addNotification } from '@resolvers/AppliedClause';
 
@@ -29,6 +35,7 @@ const resolvers: IResolvers = {
   },
   Query: {
     getPayment,
+    getContract,
     getBestRatedCompanyBySegment,
     getClosestCompanyPathBySegment,
     getRelatedCompanies,
