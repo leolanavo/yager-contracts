@@ -45,6 +45,7 @@ type Contract {
 }
 
 type AppliedClause {
+  _id: ID!
   date: String!
   delayTolerance: Int
   numberNotifications: Int
@@ -272,12 +273,12 @@ type Mutation {
   """
   terminateContract(partyID: ID!, contractID: ID!): Contract!
   """
-    Add a notification to an applied clause
+    Register an infraction notification to an applied clause.
 
     **Arguments:**
     1. @arg `appliedClauseID`: the appliedClause's id that will receive a new notification
 
-    **Return:** The updated applied clause as AppliedClause data type.
+    **Return:** The updated Contract as Contract data type.
   """
-  addNotification(appliedClauseID: ID!): AppliedClause!
+  addNotification(appliedClauseID: ID!): Contract!
 }

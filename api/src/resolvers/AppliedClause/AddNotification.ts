@@ -15,12 +15,16 @@ export async function addNotification(
   const { appliedClauseID } = args;
   const { mongodb: mongo, uuidv4 } = context;
 
-  const appliedClause = await mongo.AppliedClause.findOne({
-    _id: appliedClauseID,
+  const contract = await mongo.Contract.findOne({
+    appliedClauses: {
+      $elemMatch: {
+        _id: appliedClauseID,
+      }
+    }
   });
 
-  if (!appliedClause)
-    throw new ApolloError(`Could not find AppliedClause with id ${appliedClauseID}`, '404');
+  if (!contract)
+    throw new ApolloError(`Could not find Contract containing an AplliedClause with id ${appliedClauseID}`, '404');
 
   const notification: Notification = {
     _id: uuidv4(),
@@ -30,10 +34,14 @@ export async function addNotification(
   const savedNotification =
     await mongo.Notification.insertMany([notification]);
 
-  if (!appliedClause.notifications)
-    appliedClause.notifications = [];
+  const clauseIndex = contract.appliedClauses.findIndex(appClause => appClause._id === appliedClauseID)
 
-  appliedClause.notifications.push(savedNotification[0]);
+  if (!contract.appliedClauses[clauseIndex].notifications)
+    contract.appliedClauses[clauseIndex].notifications = [];
 
-  await appliedClause.save();
+  contract.appliedClauses[clauseIndex].notifications.push(savedNotification[0]);
+
+  await contract.save();
+
+  return contract;
 }

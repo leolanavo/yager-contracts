@@ -1,6 +1,6 @@
 import { Document, Model } from 'mongoose';
-import { ExtensionModel } from '@typings/Extension'
-import { AppliedClauseModel } from '@typings/AppliedClause';
+import { ExtensionDocument, Extension } from '@typings/Extension'
+import { AppliedClauseDocument, AppliedClause } from '@typings/AppliedClause';
 
 export interface Contract {
   _id: string;
@@ -8,8 +8,8 @@ export interface Contract {
   secondaryParty: string;
   startDate: string;
   endDate: string;
-  extensions: ExtensionModel[];
-  appliedClauses: AppliedClauseModel[];
+  extensions: Extension[];
+  appliedClauses: AppliedClause[];
   terminatedBy: string;
   terminatedDate: string;
 }
@@ -20,8 +20,8 @@ export interface ContractDocument extends Document {
   secondaryParty: string;
   startDate: string;
   endDate: string;
-  extensions: ExtensionModel[];
-  appliedClauses: AppliedClauseModel[];
+  extensions: ExtensionDocument[];
+  appliedClauses: AppliedClauseDocument[];
   terminatedBy: string;
   terminatedDate: string;
 }
