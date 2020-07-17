@@ -3,30 +3,30 @@ Create users
 """
 mutation createUsers{
   user1: createUser(
-    cpf: "82246539005", 
+    cpf: "82246539005",
 		email: "test1@test.com",
-    name: "Victor",
-		rg: "3895229406", 
+    name: "Victor de Sá",
+		rg: "3895229406",
     signature: "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mNk+P//PwMRgHFUIX0VAgAE3B3t0SaZ0AAAAABJRU5ErkJggg=="
   ){
 		id
     party
   },
 	user2: createUser(
-    cpf: "42309164003", 
+    cpf: "42309164003",
 		email: "test2@test.com",
-    name: "Lana",
-		rg: "61651968498", 
+    name: "Lana Moura Dantas",
+		rg: "61651968498",
     signature: "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mNk+P//PwMRgHFUIX0VAgAE3B3t0SaZ0AAAAABJRU5ErkJggg=="
   ){
 		id
     party
   },
   user3: createUser(
-    cpf: "41330958047", 
+    cpf: "41330958047",
 		email: "test3@test.com",
-    name: "Scholl",
-		rg: "16516515616", 
+    name: "Albert Scholl",
+		rg: "16516515616",
     signature: "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mNk+P//PwMRgHFUIX0VAgAE3B3t0SaZ0AAAAABJRU5ErkJggg=="
   ){
 		id
@@ -149,11 +149,11 @@ mutation createContracts {
         rescissory: true
         text: "Clause 1 description"
         payment: {
-          baseCharge: 100.00
-          kind: "single"
-          paymentDeadline: 10
+          baseCharge: 1200.00
+          kind: "monthly"
+          paymentDeadline: 15
           increments: [
-            { period: 365, relativeRate: 12.00, absoluteRate: 40.00 }
+            { period: 730, relativeRate: 0.12}
           ]
         }
       }
@@ -173,16 +173,16 @@ mutation createContracts {
     endDate: "1461542400000"
     clauses: [
       {
-        delayTolerance: 12
+        delayTolerance: 0
         numberNotifications: 1
         rescissory: true
-        text: "Clause 1 description"
+        text: "Sed sit amet dui augue. Quisque imperdiet sit amet purus in aliquam. Proin et enim at eros sagittis venenatis quis non purus. Vivamus convallis purus id finibus tincidunt. Vivamus imperdiet."
         payment: {
           baseCharge: 100.00
-          kind: "single"
-          paymentDeadline: 10
+          kind: "yearly"
+          paymentDeadline: 5
           increments: [
-            { period: 365, relativeRate: 12.00, absoluteRate: 40.00 }
+            { period: 120, absoluteRate: 10.00 }
           ]
         }
       }
@@ -202,16 +202,16 @@ mutation createContracts {
     endDate: "1461542400000"
     clauses: [
       {
-        delayTolerance: 12
-        numberNotifications: 1
+        delayTolerance: 1
+        numberNotifications: 2
         rescissory: true
-        text: "Clause 1 description"
+        text: "Nam vitae fermentum sapien. Sed viverra eros in libero hendrerit, et hendrerit tellus efficitur. Maecenas eros quam, maximus eu ipsum suscipit, feugiat tincidunt velit. Maecenas suscipit fringilla volutpat. Aliquam posuere."
         payment: {
-          baseCharge: 100.00
-          kind: "single"
-          paymentDeadline: 10
+          baseCharge: 10.00
+          kind: "monthly"
+          paymentDeadline: 1
           increments: [
-            { period: 365, relativeRate: 12.00, absoluteRate: 40.00 }
+            { period: 30, absoluteRate: 2.00 }
           ]
         }
       }
@@ -231,17 +231,14 @@ mutation createContracts {
     endDate: "1461542400000"
     clauses: [
       {
-        delayTolerance: 12
-        numberNotifications: 1
+        delayTolerance: 0
+        numberNotifications: 0
         rescissory: true
-        text: "Clause 1 description"
+        text: "Suspendisse ultricies sem urna. Nunc in turpis sed metus porta sodales in in purus. Suspendisse egestas, purus placerat euismod maximus, metus enim malesuada magna, sit amet congue ligula risus in."
         payment: {
-          baseCharge: 100.00
+          baseCharge: 10000.00
           kind: "single"
-          paymentDeadline: 10
-          increments: [
-            { period: 365, relativeRate: 12.00, absoluteRate: 40.00 }
-          ]
+          paymentDeadline: 2
         }
       }
     ]
@@ -260,16 +257,17 @@ mutation createContracts {
     endDate: "1461542400000"
     clauses: [
       {
-        delayTolerance: 12
+        delayTolerance: 10
         numberNotifications: 1
         rescissory: true
-        text: "Clause 1 description"
+        text: "Proin varius rhoncus consectetur. Nam id ipsum a metus efficitur vestibulum. Donec vehicula sem nibh, a mollis neque sodales in. Vestibulum elementum vel turpis eget ornare. Aliquam maximus turpis eu."
         payment: {
-          baseCharge: 100.00
-          kind: "single"
+          baseCharge: 2351.91
+          kind: "monthly"
           paymentDeadline: 10
           increments: [
-            { period: 365, relativeRate: 12.00, absoluteRate: 40.00 }
+            { period: 365, relativeRate: 0.032},
+            { period: 730, absoluteRate: 400.00 }
           ]
         }
       }
@@ -289,19 +287,46 @@ mutation createContracts {
     endDate: "1461542400000"
     clauses: [
       {
-        delayTolerance: 12
-        numberNotifications: 1
+        delayTolerance: 0
+        numberNotifications: 0
         rescissory: true
         text: "Clause 1 description"
         payment: {
           baseCharge: 100.00
           kind: "single"
           paymentDeadline: 10
+        }
+      },
+      {
+        delayTolerance: 0
+        numberNotifications: 0
+        rescissory: true
+        text: "Aliquam ut consectetur tellus. Nunc sed nisi in lectus elementum lacinia sit amet vitae magna. Pellentesque efficitur est eu justo euismod tempus ut quis mauris. Duis tincidunt justo velit, sit."
+        payment: {
+          baseCharge: 32.90
+          kind: "monthly"
+          paymentDeadline: 10
           increments: [
-            { period: 365, relativeRate: 12.00, absoluteRate: 40.00 }
+            { period: 365,  absoluteRate: 7.20 }
           ]
         }
-      }
+      },
+      {
+        delayTolerance: 0
+        numberNotifications: 0
+        rescissory: true
+        text: "Sed mollis ante neque, sit amet molestie ex vehicula eget. Vivamus cursus, nisi a ornare ultrices, nisi orci tincidunt neque, at ornare lorem felis in velit. Quisque a magna vitae."
+        payment: {
+          baseCharge: 1.00
+          kind: "monthly"
+          paymentDeadline: 10
+          increments: [
+            { period: 30, relativeRate: 0.02 }
+            { period: 365, absoluteRate: 4.00 }
+            { period: 1095, relativeRate: 0.5 }
+          ]
+        }
+      },
     ]
   ) {
     _id
