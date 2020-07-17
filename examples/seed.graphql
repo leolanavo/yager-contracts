@@ -38,16 +38,16 @@ mutation createUsers{
 {
   "data": {
     "user1": {
-      "id": "40d8fd1c-2236-4169-8e6f-ca00fb0c0d02",
-      "party": "94041612-c8dd-48cb-be4f-3a459d8c639f"
+      "id": "363a8404-dc7e-418c-b7bf-a48ec587d309",
+      "party": "b10443ff-ba46-4b8b-812a-8148208c344d"
     },
     "user2": {
-      "id": "89688538-f5af-4d2e-b8ee-4d272a9af6b2",
-      "party": "74526c7f-c7a7-41bc-b830-8ba09358b0b9"
+      "id": "53945c9c-b005-43ed-8212-c0f07a8108a9",
+      "party": "6ebc08bb-ef86-4038-b68d-205e59057a37"
     },
     "user3": {
-      "id": "85b1d0f7-b161-47a1-b24f-1da997ad4acb",
-      "party": "2293d18b-c2eb-4f41-b65e-db2856d34144"
+      "id": "a5903025-b3c5-4d8d-9aa1-2aa0ae2f804e",
+      "party": "492b9553-3ec7-4d17-9556-b780e59d20f4"
     }
   }
 }
@@ -57,5 +57,387 @@ mutation createUsers{
 Create companies
 """
 mutation createCompanies {
+  company1: createCompany( 
+  	name: "Disneylândia",
+    cnpj: "78589118000194",
+    segments: ["entertainment"],
+    documents: ["iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mNk+P//PwMRgHFUIX0VAgAE3B3t0SaZ0AAAAABJRU5ErkJggg=="]
+  ){
+    id,
+    party
+  },
+  company2: createCompany( 
+  	name: "Australian Migration",
+    cnpj: "28594513000197",
+    segments: ["travel", "tourism"],
+    documents: ["iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mNk+P//PwMRgHFUIX0VAgAE3B3t0SaZ0AAAAABJRU5ErkJggg=="]
+  ){
+    id,
+    party
+  },
+  company3: createCompany( 
+  	name: "Purple Lights",
+    cnpj: "78005752000132",
+    segments: ["tourism", "housing", "renovation"],
+    documents: ["iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mNk+P//PwMRgHFUIX0VAgAE3B3t0SaZ0AAAAABJRU5ErkJggg=="]
+  ){
+    id,
+    party
+  },
+}
+
+"""
+{
+  "data": {
+    "company1": {
+      "id": "9da4e5cc-7ce6-4b28-b84e-0fbc6728a90c",
+      "party": "f8840dab-253d-4d33-a1cf-cebe432317c5"
+    },
+    "company2": {
+      "id": "8159c123-4b34-4e3b-95a4-75de702c8d1f",
+      "party": "c9c2a1e4-f9fa-439e-91e0-58053255e20d"
+    },
+    "company3": {
+      "id": "9aa544d2-2cf9-4fe6-97be-0ad290e7e495",
+      "party": "d2cf4b14-481f-435d-890a-f1dac79f3333"
+    }
+  }
+}
+"""
+
+"""
+NÃO TA FUNCIONANDO
+Add representations
+"""
+# mutation addRepresentations {
+#   representation1: addRepresentation(
+#     userId:"363a8404-dc7e-418c-b7bf-a48ec587d309", 
+#     companyId: "9da4e5cc-7ce6-4b28-b84e-0fbc6728a90c"
+#   ){
+#     id,
+#     party
+#   },
+#   representation2: addRepresentation(
+#     userId:"363a8404-dc7e-418c-b7bf-a48ec587d309", 
+#     companyId: "8159c123-4b34-4e3b-95a4-75de702c8d1f"
+#   ){
+#     id,
+#     party
+#   },
+#   representation3: addRepresentation(
+#     userId:"53945c9c-b005-43ed-8212-c0f07a8108a9",
+#     companyId: "8159c123-4b34-4e3b-95a4-75de702c8d1f"
+#   ){
+#     id,
+#     party
+#   },
+# }
+
+"""
+Create contracts
+"""
+mutation createContracts {
+  contract1: createContract(
+    mainParty: "b10443ff-ba46-4b8b-812a-8148208c344d"
+    secondaryParty: "492b9553-3ec7-4d17-9556-b780e59d20f4"
+    startDate: "1410739200000"
+    endDate: "1461542400000"
+    clauses: [
+      {
+        delayTolerance: 12
+        numberNotifications: 1
+        rescissory: true
+        text: "Clause 1 description"
+        payment: {
+          baseCharge: 100.00
+          kind: "single"
+          paymentDeadline: 10
+          increments: [
+            { period: 365, relativeRate: 12.00, absoluteRate: 40.00 }
+          ]
+        }
+      }
+    ]
+  ) {
+    _id
+    mainParty
+    secondaryParty
+    appliedClauses {
+      clauseID
+    }
+  },
+  contract2: createContract(
+    mainParty: "6ebc08bb-ef86-4038-b68d-205e59057a37"
+    secondaryParty: "c9c2a1e4-f9fa-439e-91e0-58053255e20d"
+    startDate: "1410739200000"
+    endDate: "1461542400000"
+    clauses: [
+      {
+        delayTolerance: 12
+        numberNotifications: 1
+        rescissory: true
+        text: "Clause 1 description"
+        payment: {
+          baseCharge: 100.00
+          kind: "single"
+          paymentDeadline: 10
+          increments: [
+            { period: 365, relativeRate: 12.00, absoluteRate: 40.00 }
+          ]
+        }
+      }
+    ]
+  ) {
+    _id
+    mainParty
+    secondaryParty
+    appliedClauses {
+      clauseID
+    }
+  },
+  contract3: createContract(
+    mainParty: "c9c2a1e4-f9fa-439e-91e0-58053255e20d"
+    secondaryParty: "f8840dab-253d-4d33-a1cf-cebe432317c5"
+    startDate: "1410739200000"
+    endDate: "1461542400000"
+    clauses: [
+      {
+        delayTolerance: 12
+        numberNotifications: 1
+        rescissory: true
+        text: "Clause 1 description"
+        payment: {
+          baseCharge: 100.00
+          kind: "single"
+          paymentDeadline: 10
+          increments: [
+            { period: 365, relativeRate: 12.00, absoluteRate: 40.00 }
+          ]
+        }
+      }
+    ]
+  ) {
+    _id
+    mainParty
+    secondaryParty
+    appliedClauses {
+      clauseID
+    }
+  },
+  contract4: createContract(
+    mainParty: "f8840dab-253d-4d33-a1cf-cebe432317c5"
+    secondaryParty: "d2cf4b14-481f-435d-890a-f1dac79f3333"
+    startDate: "1410739200000"
+    endDate: "1461542400000"
+    clauses: [
+      {
+        delayTolerance: 12
+        numberNotifications: 1
+        rescissory: true
+        text: "Clause 1 description"
+        payment: {
+          baseCharge: 100.00
+          kind: "single"
+          paymentDeadline: 10
+          increments: [
+            { period: 365, relativeRate: 12.00, absoluteRate: 40.00 }
+          ]
+        }
+      }
+    ]
+  ) {
+    _id
+    mainParty
+    secondaryParty
+    appliedClauses {
+      clauseID
+    }
+  },
+  contract5: createContract(
+    mainParty: "6ebc08bb-ef86-4038-b68d-205e59057a37"
+    secondaryParty: "b10443ff-ba46-4b8b-812a-8148208c344d"
+    startDate: "1410739200000"
+    endDate: "1461542400000"
+    clauses: [
+      {
+        delayTolerance: 12
+        numberNotifications: 1
+        rescissory: true
+        text: "Clause 1 description"
+        payment: {
+          baseCharge: 100.00
+          kind: "single"
+          paymentDeadline: 10
+          increments: [
+            { period: 365, relativeRate: 12.00, absoluteRate: 40.00 }
+          ]
+        }
+      }
+    ]
+  ) {
+    _id
+    mainParty
+    secondaryParty
+    appliedClauses {
+      clauseID
+    }
+  },
+  contract6: createContract(
+    mainParty: "d2cf4b14-481f-435d-890a-f1dac79f3333"
+    secondaryParty: "492b9553-3ec7-4d17-9556-b780e59d20f4"
+    startDate: "1410739200000"
+    endDate: "1461542400000"
+    clauses: [
+      {
+        delayTolerance: 12
+        numberNotifications: 1
+        rescissory: true
+        text: "Clause 1 description"
+        payment: {
+          baseCharge: 100.00
+          kind: "single"
+          paymentDeadline: 10
+          increments: [
+            { period: 365, relativeRate: 12.00, absoluteRate: 40.00 }
+          ]
+        }
+      }
+    ]
+  ) {
+    _id
+    mainParty
+    secondaryParty
+    appliedClauses {
+      clauseID
+    }
+  }
+}
+
+"""
+{
+  "data": {
+    "contract1": {
+      "_id": "4fc8c08b-8768-48be-a290-9f7fbba20edd",
+      "mainParty": "b10443ff-ba46-4b8b-812a-8148208c344d",
+      "secondaryParty": "492b9553-3ec7-4d17-9556-b780e59d20f4",
+      "appliedClauses": [
+        {
+          "clauseID": "bc3db365-5afd-4af3-9d0e-a585e96bb250"
+        }
+      ]
+    },
+    "contract2": {
+      "_id": "d3436393-a3ec-4db7-a582-43c2f9195d9c",
+      "mainParty": "6ebc08bb-ef86-4038-b68d-205e59057a37",
+      "secondaryParty": "c9c2a1e4-f9fa-439e-91e0-58053255e20d",
+      "appliedClauses": [
+        {
+          "clauseID": "b486c971-0428-477d-a5e2-35fcd0610752"
+        }
+      ]
+    },
+    "contract3": {
+      "_id": "b2b3512c-13ae-4f63-9288-3f82c19e1770",
+      "mainParty": "c9c2a1e4-f9fa-439e-91e0-58053255e20d",
+      "secondaryParty": "f8840dab-253d-4d33-a1cf-cebe432317c5",
+      "appliedClauses": [
+        {
+          "clauseID": "5e57f5b2-a5d1-4316-a1a4-7a515b7de068"
+        }
+      ]
+    },
+    "contract4": {
+      "_id": "cbe8728b-8958-4cef-9635-8e6056c72d6b",
+      "mainParty": "f8840dab-253d-4d33-a1cf-cebe432317c5",
+      "secondaryParty": "d2cf4b14-481f-435d-890a-f1dac79f3333",
+      "appliedClauses": [
+        {
+          "clauseID": "f80c3bb0-2480-4c5e-b64d-7262358bdaa3"
+        }
+      ]
+    },
+    "contract5": {
+      "_id": "93c2d505-4c6c-489c-bc25-726fd56c8518",
+      "mainParty": "6ebc08bb-ef86-4038-b68d-205e59057a37",
+      "secondaryParty": "b10443ff-ba46-4b8b-812a-8148208c344d",
+      "appliedClauses": [
+        {
+          "clauseID": "1c1d814a-a44a-4862-b6e5-728b84869e93"
+        }
+      ]
+    },
+    "contract6": {
+      "_id": "e91562fc-e4ee-4185-81c8-7af8396f8478",
+      "mainParty": "d2cf4b14-481f-435d-890a-f1dac79f3333",
+      "secondaryParty": "492b9553-3ec7-4d17-9556-b780e59d20f4",
+      "appliedClauses": [
+        {
+          "clauseID": "6016e162-ffaa-49df-ad28-402de494f4c4"
+        }
+      ]
+    }
+  }
+}
+"""
+
+"""
+Recommendation queries
+"""
+query recommendationQueries{
+  recommendation1: getRelatedCompaniesBySegment(
+    name:"Lana", 
+    segment:"entertainment"
+  ) {
+    name 
+  },
+  recommendation2: getClosestCompanyPathBySegment(
+    name:"Lana",
+    segment:"entertainment"
+  ),
+  recommendation3: getRelatedCompanyBySegmentWithMoreContracts(
+    name:"Lana",
+    segment:"entertainment"
+  ){
+    name
+  },
+  recommendation4: getBestRatedCompanyBySegment(
+    name: "Lana", 
+    segment: "entertainment"
+  ){
+    name
+  },
+  recommendation5: getRelatedCompanies(name:"Lana"){name, segments}
+}
+
+"""
+Generic queries
+"""
+query genericQueries {
+  getUser: getUser(userID: "363a8404-dc7e-418c-b7bf-a48ec587d309"){
+    name,
+  },  
+  getCompany: getCompany(companyID: "9da4e5cc-7ce6-4b28-b84e-0fbc6728a90c"){
+    name
+  },
+  getContract:getContract(contractID:"4fc8c08b-8768-48be-a290-9f7fbba20edd") {
+    mainParty,
+    secondaryParty,
+    startDate,
+    endDate
+  }
   
+}
+
+"""
+NÃO FUNCIONOU
+Add signature
+"""
+mutation addSignature{
+  addSignature(
+    userID: "363a8404-dc7e-418c-b7bf-a48ec587d309", 
+    signature: "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mNk+P//PwMRgHFUIX0VAgAE3B3t0SaZ0AAAAABJRU5ErkJggg=="
+  ) {
+    name,
+    signature
+  }
 }
