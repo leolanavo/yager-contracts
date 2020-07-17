@@ -291,4 +291,13 @@ type Mutation {
     **Return:** The updated Clause with the reference added as Clause data type.
   """
   addReference(clauseID: ID!, referencedClauseID: ID!): Clause!
+  """
+    Create a bill
+
+    **Arguments:**
+    1. @arg `appliedClauseID`: the appliedClause's id that will be used to create the bill
+
+    **Return:** The updated Contract as Contract data type.
+  """
+  createBill(appliedClauseID: ID!): AppliedClause!
 }

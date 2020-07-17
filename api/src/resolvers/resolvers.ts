@@ -10,7 +10,7 @@ import {
   terminateContract,
   getContract
 } from "@resolvers/Contract";
-import { createPayment, getPayment } from "@resolvers/Bill";
+import { createBill } from "@resolvers/Bill";
 import { addNotification } from '@resolvers/AppliedClause';
 import { addReference } from "@resolvers/Clause";
 
@@ -33,10 +33,9 @@ const resolvers: IResolvers = {
     addExtension,
     terminateContract,
     addNotification,
-    createPayment,
+    createBill,
   },
   Query: {
-    getPayment,
     getContract,
     getBestRatedCompanyBySegment,
     getClosestCompanyPathBySegment,
