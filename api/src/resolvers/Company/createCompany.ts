@@ -50,27 +50,42 @@ export async function createCompany(
   const company = new Company();
   company.id = uuidv4();
   company.party = party;
-  Object.keys(args).forEach(k => company[k] = args[k]);
+  Object.keys(args).forEach((k) => (company[k] = args[k]));
   await Company.save(company);
 
-  await neo4j.session.run(createCompanyCypher, {
-    id: company.id,
-    name,
-    cnpj,
-    party_id: party.id,
-    rating: 0,
-  });
-
-  segments.forEach(async segment => {
-    await neo4j.session.run(createSegmentCypher, {
-      name: segment,
-    });
-
-    await neo4j.session.run(createCompanySegmentCypher, {
+  await neo4j.driver
+    .session({
+      defaultAccessMode: "WRITE",
+      database: "yager",
+    })
+    .run(createCompanyCypher, {
       id: company.id,
-      segment,
+      name,
+      cnpj,
+      party_id: party.id,
+      rating: 0,
     });
+
+  segments.forEach(async (segment) => {
+    await neo4j.driver
+      .session({
+        defaultAccessMode: "WRITE",
+        database: "yager",
+      })
+      .run(createSegmentCypher, {
+        name: segment,
+      });
+
+    await neo4j.driver
+      .session({
+        defaultAccessMode: "WRITE",
+        database: "yager",
+      })
+      .run(createCompanySegmentCypher, {
+        id: company.id,
+        segment,
+      });
   });
 
-  return company;
+  return company.toJSON();
 }

@@ -21,10 +21,15 @@ export async function getRelatedCompaniesBySegment(
   const { neo4j }: Context = context;
   const { name, segment } = args;
 
-  const result = await neo4j.session.run(cypherQuery, {
-    name,
-    segment,
-  });
+  const result = await neo4j.driver
+    .session({
+      defaultAccessMode: "WRITE",
+      database: "yager",
+    })
+    .run(cypherQuery, {
+      name,
+      segment,
+    });
 
   const response = [] as any;
 

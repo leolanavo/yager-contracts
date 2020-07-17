@@ -20,15 +20,20 @@ export async function getRelatedCompanies(
   const { neo4j }: Context = context;
   const { name } = args;
 
-  const result = await neo4j.session.run(cypherQuery, {
-    name,
-  });
+  const result = await neo4j.driver
+    .session({
+      defaultAccessMode: "WRITE",
+      database: "yager",
+    })
+    .run(cypherQuery, {
+      name,
+    });
 
   const response = [] as any;
 
   console.log(response);
 
-  result.records.forEach(r => {
+  result.records.forEach((r) => {
     const company = {
       id: "",
       cpnj: "",
@@ -37,14 +42,13 @@ export async function getRelatedCompanies(
       documents: [],
     };
 
-    company.name = r.get('Company');
-    company.segments = r.get('Segments');
+    company.name = r.get("Company");
+    company.segments = r.get("Segments");
 
     console.log(company);
-    
+
     response.push(company);
   });
 
-  
   return response;
 }

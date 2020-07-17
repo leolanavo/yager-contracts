@@ -23,10 +23,15 @@ export async function getRelatedCompanyBySegmentWithMoreContracts(
   const { neo4j }: Context = context;
   const { name, segment } = args;
 
-  const result = await neo4j.session.run(cypherQuery, {
-    name,
-    segment,
-  });
+  const result = await neo4j.driver
+    .session({
+      defaultAccessMode: "WRITE",
+      database: "yager",
+    })
+    .run(cypherQuery, {
+      name,
+      segment,
+    });
 
   const response = {
     id: "",
@@ -36,12 +41,12 @@ export async function getRelatedCompanyBySegmentWithMoreContracts(
     documents: [],
   };
 
-  result.records.forEach(r => {
-    response.name = r.get('Company');
-    console.log(r.get('Number of Contracts'));
+  result.records.forEach((r) => {
+    response.name = r.get("Company");
+    console.log(r.get("Number of Contracts"));
   });
 
   console.log(response);
-  
+
   return response;
 }

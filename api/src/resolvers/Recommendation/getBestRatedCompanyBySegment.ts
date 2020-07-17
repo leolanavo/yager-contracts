@@ -20,10 +20,15 @@ export async function getBestRatedCompanyBySegment(
   const { neo4j }: Context = context;
   const { name, segment } = args;
 
-  const result = await neo4j.session.run(cypherQuery, {
-    name,
-    segment,
-  });
+  const result = await neo4j.driver
+    .session({
+      defaultAccessMode: "WRITE",
+      database: "yager",
+    })
+    .run(cypherQuery, {
+      name,
+      segment,
+    });
 
   console.log(result);
 
@@ -35,8 +40,8 @@ export async function getBestRatedCompanyBySegment(
     documents: [],
   };
 
-  result.records.forEach(r => {
-    response.name = r.get('Company');
+  result.records.forEach((r) => {
+    response.name = r.get("Company");
   });
 
   return response;
