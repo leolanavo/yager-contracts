@@ -102,9 +102,28 @@ input IncrementInput {
 }
 
 type Query {
+  """
+  Get user with provided ID
+
+  **Arguments:**
+  1. @arg `userID`: desired user ID
+
+  **Return:** User with the given ID
+  """
+  getUser(userID: ID!): User!
+  """
+  Get company with provided ID
+
+  **Arguments:**
+  1. @arg `companyID`: desired company ID
+
+  **Return:** Company with the given ID
+  """
+  getCompany(companyID: ID!): User!
+
   getPayment(id: ID!): User!
   """
-  Get contracted with provided ID
+  Get contract with provided ID
 
   **Arguments:**
   1. @arg `contractID`: desired contract ID
@@ -220,25 +239,6 @@ type Mutation {
     segments: [ID!]!
     documents: [ID!]!
   ): Company!
-
-  # Payment resolvers
-  createPayment(
-    baseCharge: Float!
-    chargeDate: String!
-    paymentDate: String
-  ): Bill!
-  addPayment(
-    clauseId: ID!
-    baseCharge: Float!
-    type: String!
-    paymentDeadline: Int
-  ): Payment!
-  addIncrement(
-    paymentId: ID!
-    period: Int
-    relativeRate: Float!
-    absoluteRate: Float!
-  ): Increment!
 
   # Contract resolvers
   """

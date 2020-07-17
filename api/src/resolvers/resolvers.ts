@@ -1,7 +1,7 @@
 import { IResolvers } from "apollo-server-koa";
 
-import { createUser, addRepresentation, addSignature } from "@resolvers/User";
-import { createCompany } from "@resolvers/Company";
+import { createUser, addRepresentation, addSignature, getUser } from "@resolvers/User";
+import { createCompany, getCompany } from "@resolvers/Company";
 
 import {
   createContract,
@@ -37,6 +37,8 @@ const resolvers: IResolvers = {
     createBill,
   },
   Query: {
+    getUser,
+    getCompany,
     getContract,
     getBestRatedCompanyBySegment,
     getClosestCompanyPathBySegment,

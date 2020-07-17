@@ -14,7 +14,7 @@ export async function getContract(
   const { contractID } = args;
   const { mongodb: mongo } = context;
 
-  const contract = mongo.Contract.findOne({
+  const contract = await mongo.Contract.findOne({
     _id: contractID
   });
 
