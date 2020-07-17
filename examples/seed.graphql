@@ -1,0 +1,61 @@
+"""
+Create users
+"""
+mutation createUsers{
+  user1: createUser(
+    cpf: "82246539005", 
+		email: "test1@test.com",
+    name: "Victor",
+		rg: "3895229406", 
+    signature: "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mNk+P//PwMRgHFUIX0VAgAE3B3t0SaZ0AAAAABJRU5ErkJggg=="
+  ){
+		id
+    party
+  },
+	user2: createUser(
+    cpf: "42309164003", 
+		email: "test2@test.com",
+    name: "Lana",
+		rg: "61651968498", 
+    signature: "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mNk+P//PwMRgHFUIX0VAgAE3B3t0SaZ0AAAAABJRU5ErkJggg=="
+  ){
+		id
+    party
+  },
+  user3: createUser(
+    cpf: "41330958047", 
+		email: "test3@test.com",
+    name: "Scholl",
+		rg: "16516515616", 
+    signature: "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mNk+P//PwMRgHFUIX0VAgAE3B3t0SaZ0AAAAABJRU5ErkJggg=="
+  ){
+		id
+    party
+  },
+}
+
+"""
+{
+  "data": {
+    "user1": {
+      "id": "40d8fd1c-2236-4169-8e6f-ca00fb0c0d02",
+      "party": "94041612-c8dd-48cb-be4f-3a459d8c639f"
+    },
+    "user2": {
+      "id": "89688538-f5af-4d2e-b8ee-4d272a9af6b2",
+      "party": "74526c7f-c7a7-41bc-b830-8ba09358b0b9"
+    },
+    "user3": {
+      "id": "85b1d0f7-b161-47a1-b24f-1da997ad4acb",
+      "party": "2293d18b-c2eb-4f41-b65e-db2856d34144"
+    }
+  }
+}
+"""
+
+"""
+Create companies
+"""
+mutation createCompanies {
+  
+}
