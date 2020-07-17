@@ -111,6 +111,7 @@ type Query {
   **Return:** User with the given ID
   """
   getUser(userID: ID!): User!
+
   """
   Get company with provided ID
 
@@ -121,7 +122,6 @@ type Query {
   """
   getCompany(companyID: ID!): User!
 
-  getPayment(id: ID!): User!
   """
   Get contract with provided ID
 
@@ -130,7 +130,6 @@ type Query {
 
   **Return:** Contract with the given ID
   """
-
   getContract(contractID: ID!): Contract!
 
   # Recommendation Queries
@@ -205,19 +204,26 @@ type Mutation {
   2. @arg `email`: user's email, must be unique
   3. @arg `name`: user's name
   4. @arg `rg`: user's rg
+  5. @arg `signature`: user's signature in base64
 
   **Return:** The saved user and an User data type.
   """
-  createUser(cpf: String!, email: String!, name: String!, rg: String!): User!
+  createUser(
+    cpf: String!
+    email: String!
+    name: String!
+    rg: String!
+    signature: String!
+  ): User!
 
   """
-  Add the given user as representative from the given company
+  Add an user as a representative of the company
 
   **Arguments:**
-  1. @arg `userId`: user's id that will be used to identify the user
-  2. @arg `companyId`: comapny's id that will be used to identify the company
+    1. @arg `userId`: user's id
+    2. @arg `companyId`: company's id
 
-  **Return:** The saved user and an User data type.
+    **Return:** The representative user and an User data type.
   """
   addRepresentation(userId: ID!, companyId: ID!): User!
 
@@ -233,11 +239,21 @@ type Mutation {
   addSignature(userID: ID!, signature: String!): User!
 
   # Company resolvers
+  """
+  Create a company by inserting it into postgres and neo4j, also create the
+  company segments and associate to the company
+
+  **Arguments:**
+  1. @arg `name`: company's name
+  2. @arg `cnpj`: company's cnpj, must be unique and a valid cnpj
+  3. @arg `segments`: array of the company's segment names
+  4. @arg `documents`: and array of company's documents in base64
+  """
   createCompany(
     name: String!
     cnpj: String!
-    segments: [ID!]!
-    documents: [ID!]!
+    segments: [String!]!
+    documents: [String!]!
   ): Company!
 
   # Contract resolvers
@@ -260,6 +276,7 @@ type Mutation {
     endDate: String!
     clauses: [ClauseInput!]!
   ): Contract!
+
   """
   Add an extension to the validity of a contract, registering a new end date to the contract.
 
@@ -271,37 +288,44 @@ type Mutation {
     **Return:** The updated contract as Contract data type.
   """
   addExtension(contractID: ID!, date: String!, newEndDate: String!): Contract!
+
   """
-    Add an additional clause to a contract, registering the date when it became active.
+  Add an additional clause to a contract, registering the date when it became active.
 
-    **Arguments:**
-    1. @arg `clause`: The ClauseInput object that defines the new clause
-    2. @arg `contractID`: the ID of the contract to be extended
-    3. @arg `startDate`: the date this clause counts as part of the contract
+  **Arguments:**
+  1. @arg `clause`: The ClauseInput object that defines the new clause
+  2. @arg `contractID`: the ID of the contract to be extended
+  3. @arg `startDate`: the date this clause counts as part of the contract
 
-    **Return:** The updated contract as Contract data type.
+  **Return:** The updated contract as Contract data type.
   """
-  addClause(clause: ClauseInput!, contractID: ID!, startDate: String!): Contract!
+  addClause(
+    clause: ClauseInput!
+    contractID: ID!
+    startDate: String!
+  ): Contract!
+
   """
-    Terminate a contract, this termination favors the party that terminated it, this means
-    that the other party broke the contract.
+  Terminate a contract, this termination favors the party that terminated it, this means
+  that the other party broke the contract.
 
-    **Arguments:**
-    1. @arg `partyID`: the party's id that is terminating the contract
-    2. @arg `contractID`: the ID of the contract that will be terminated
+  **Arguments:**
+  1. @arg `partyID`: the party's id that is terminating the contract
+  2. @arg `contractID`: the ID of the contract that will be terminated
 
-    **Return:** The terminated contract as Contract data type.
+  **Return:** The terminated contract as Contract data type.
   """
   terminateContract(partyID: ID!, contractID: ID!): Contract!
+
   """
     Register an infraction notification to an applied clause. If the number of notifications exceed
     the number in the applied clause, a bill will be generated instead, ant the contract will be return
     unchanged.
 
-    **Arguments:**
-    1. @arg `appliedClauseID`: the appliedClause's id that will receive a new notification
+  **Arguments:**
+  1. @arg `appliedClauseID`: the appliedClause's id that will receive a new notification
 
-    **Return:** The updated Contract as Contract data type.
+  **Return:** The updated Contract as Contract data type.
   """
   addNotification(appliedClauseID: ID!): Contract!
   """
