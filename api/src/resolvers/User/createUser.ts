@@ -40,7 +40,7 @@ export async function createUser(
 
   const party = new Party();
   party.id = uuidv4();
-  await party.save();
+  await Party.save(party);
 
   const user = new User();
   user.id = uuidv4();

@@ -18,6 +18,8 @@ export async function addSignature(
 
   const user = await User.findOne({
     id: userID
+  }, {
+    relations: ['party', 'company']
   });
 
   if (!user)

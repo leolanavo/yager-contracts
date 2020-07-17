@@ -18,10 +18,14 @@ export async function addRepresentation(
 
   const user = await User.findOne({
     id: userId,
+  }, {
+    relations: ['party', 'companies']
   });
 
   const company = await Company.findOne({
     id: companyId,
+  }, {
+    relations: ['party', 'representatives']
   });
 
   if (!user)
