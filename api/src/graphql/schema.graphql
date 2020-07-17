@@ -281,4 +281,14 @@ type Mutation {
     **Return:** The updated Contract as Contract data type.
   """
   addNotification(appliedClauseID: ID!): Contract!
+  """
+    Add a reference to a clause into another clause.
+
+    **Arguments:**
+    1. @arg `clauseID`: the id of the clause to receive te reference
+    2. @arg `referencedClauseID`: the id of the clause to be referenced
+
+    **Return:** The updated Clause with the reference added as Clause data type.
+  """
+  addReference(clauseID: ID!, referencedClauseID: ID!): Clause!
 }

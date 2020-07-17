@@ -12,6 +12,7 @@ import {
 } from "@resolvers/Contract";
 import { createPayment, getPayment } from "@resolvers/Bill";
 import { addNotification } from '@resolvers/AppliedClause';
+import { addReference } from "@resolvers/Clause";
 
 import {
   getBestRatedCompanyBySegment,
@@ -28,6 +29,7 @@ const resolvers: IResolvers = {
     createCompany,
     createContract,
     addClause,
+    addReference,
     addExtension,
     terminateContract,
     addNotification,
