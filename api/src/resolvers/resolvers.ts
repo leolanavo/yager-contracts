@@ -10,7 +10,7 @@ import {
   terminateContract,
   getContract
 } from "@resolvers/Contract";
-import { createPayment, getPayment } from "@resolvers/AppliedPayment";
+import { createPayment, getPayment } from "@resolvers/Bill";
 import { addNotification } from '@resolvers/AppliedClause';
 
 import {

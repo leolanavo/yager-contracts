@@ -1,6 +1,7 @@
+import { ApolloError } from 'apollo-server-koa';
+
 import { Context } from '@typings/Context';
 import { Notification } from '@typings/Notification';
-import { ApolloError } from 'apollo-server-koa';
 
 interface Args {
   appliedClauseID: string;

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import AppliedPayment from '@mongodb/models/AppliedPayment';
+import Bill from '@mongodb/models/Bill';
 import Increment from '@mongodb/models/Increment';
 import Payment from '@mongodb/models/Payment';
 import Clause from '@mongodb/models/Clause';
@@ -17,7 +17,7 @@ const mongoUrl: string = process.env.MONGO_URL
 mongoose.connect(mongoUrl);
 
 export default {
-  AppliedPayment,
+  Bill,
   Increment,
   Payment,
   Clause,

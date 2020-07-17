@@ -1,4 +1,4 @@
-import { AppliedPayment } from '@typings/AppliedPayment';
+import { Bill } from '@typings/Bill';
 import { Context } from '@typings/Context';
 
 interface Args {
@@ -12,15 +12,15 @@ export async function createPayment(
   args: Args,
   context: Context,
   ___: any
-): Promise<AppliedPayment> {
+): Promise<Bill> {
   const { mongodb, uuidv4 }: Context = context;
 
-  const payment: AppliedPayment = {
+  const payment: Bill = {
     _id: uuidv4(),
     ...args,
   };
 
-  mongodb.AppliedPayment.insertMany([payment]);
+  mongodb.Bill.insertMany([payment]);
 
   return payment;
 }

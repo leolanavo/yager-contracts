@@ -1,21 +1,21 @@
 import { Document, Model } from 'mongoose';
 
-import { IncrementModel } from '@typings/Increment'
+import { Increment, IncrementDocument } from '@typings/Increment'
 
 export interface Payment {
   _id: string;
   baseCharge: number,
   kind: string,
   paymentDeadline: number,
-  increments: IncrementModel[],
+  increments: Increment[],
 }
 
 export interface PaymentDocument extends Document {
   _id: string;
-  baseCharge: number,
-  kind: string,
-  paymentDeadline: number,
-  increments: IncrementModel[],
+  baseCharge: number;
+  kind: string;
+  paymentDeadline: number;
+  increments: IncrementDocument[];
 }
 
 export declare type PaymentModel = Model<PaymentDocument>;

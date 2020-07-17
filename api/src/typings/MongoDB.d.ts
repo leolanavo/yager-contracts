@@ -1,4 +1,4 @@
-import { AppliedPaymentModel } from 'src/typings/AppliedPayment';
+import { BillModel } from 'src/typings/Bill';
 import { ClauseModel } from 'src/typings/Clause';
 import { IncrementModel } from 'src/typings/Increment';
 import { PaymentModel } from 'src/typings/Payment';
@@ -8,7 +8,7 @@ import { AppliedClauseModel } from 'src/typings/AppliedClause';
 import { NotificationModel } from 'src/typings/Notification';
 
 export interface MongoDBInterface {
-  AppliedPayment: AppliedPaymentModel;
+  Bill: BillModel;
   Clause: ClauseModel;
   Increment: IncrementModel;
   Payment: PaymentModel;
@@ -16,7 +16,7 @@ export interface MongoDBInterface {
   Extension: ExtensionModel;
   AppliedClause: AppliedClauseModel;
   Notification: NotificationModel;
-  [key: string]: AppliedPaymentModel | ClauseModel | IncrementModel |
+  [key: string]: BillModel | ClauseModel | IncrementModel |
   PaymentModel | ContractModel | ExtensionModel | AppliedClauseModel |
   NotificationModel;
 }

@@ -18,9 +18,9 @@ type Company {
   party: ID!
 }
 
-type AppliedPayment {
+type Bill {
   _id: String!
-  baseCharge: Float!
+  value: Float!
   chargeDate: String!
   paymentDate: String
 }
@@ -205,7 +205,7 @@ type Mutation {
     baseCharge: Float!
     chargeDate: String!
     paymentDate: String
-  ): AppliedPayment!
+  ): Bill!
   addPayment(
     clauseId: ID!
     baseCharge: Float!

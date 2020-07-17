@@ -1,2 +1,2 @@
-export { createPayment } from '@resolvers/AppliedPayment/createPayment';
-export { getPayment } from '@resolvers/AppliedPayment/getPayment';
+export { createPayment } from '@resolvers/Bill/createPayment';
+export { getPayment } from '@resolvers/Bill/getPayment';

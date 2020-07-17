@@ -28,12 +28,12 @@ const result1 = db.contracts.find({
 const clauses_no_ap = db.clauses.find({
     $or: [
         {
-            appliedPayments: {
+            Bills: {
                 $exists: false
             }
         },
         {
-            appliedPayments: {
+            Bills: {
                 $eq: []
             }
         },

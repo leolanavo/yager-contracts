@@ -39,4 +39,4 @@ payments = [
   }
 ]
 
-db.appliedPayments.insertMany(payments)
+db.Bills.insertMany(payments)

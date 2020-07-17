@@ -1,5 +1,5 @@
 import { Document, Model } from 'mongoose';
-import { PaymentModel } from '@typings/Payment';
+import { Payment, PaymentDocument } from '@typings/Payment';
 
 export interface ClauseInput {
   delayTolerance: number;
@@ -20,16 +20,16 @@ export interface ClauseInput {
 
 export interface Clause {
   _id: string;
-  text: string,
-  references: string[]
-  payment: PaymentModel
+  text: string;
+  references: string[];
+  payment: Payment;
 }
 
 export interface ClauseDocument extends Document {
   _id: string;
-  text: string,
-  references: string[]
-  payment: PaymentModel
+  text: string;
+  references: string[];
+  payment: PaymentDocument;
 }
 
 export declare type ClauseModel = Model<ClauseDocument>;
