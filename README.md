@@ -15,7 +15,7 @@
 
 This is the Yager Contracts' API, a platform for organizing and monitoring contracts.
 
-This is a GraphQL API built with Node and TypeScript using polygloth persistence.
+This is a GraphQL API built with Node and TypeScript using polyglot persistence.
 For this persistence we are using TypeORM with postgres for relational data, mongoose
 with mongoDB for non-relational data and neo4j for graph data.
 
