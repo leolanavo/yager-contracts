@@ -344,7 +344,16 @@ type Mutation {
     **Arguments:**
     1. @arg `appliedClauseID`: the appliedClause's id that will be used to create the bill
 
-    **Return:** The updated Contract as Contract data type.
+    **Return:** The created Bill as Bill data type.
   """
-  createBill(appliedClauseID: ID!): AppliedClause!
+  createBill(appliedClauseID: ID!): Bill!
+  """
+    Register Bill as paid.
+
+    **Arguments:**
+    1. @arg `billID`: the id of the bill to be paid.
+
+    **Return:** The updated Bill as BILL data type.
+  """
+  payBill(billID: ID!): Bill!
 }

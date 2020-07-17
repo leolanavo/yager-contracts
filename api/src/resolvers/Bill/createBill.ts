@@ -26,11 +26,12 @@ export async function createBill(
   });
 
   if (!contract)
-    throw new ApolloError(`Could not find Contract containing an AplliedClause with id ${appliedClauseID}`, '404');
+    throw new ApolloError(`Could not find Contract containing an AppliedClause with id ${appliedClauseID}`, '404');
 
   const appliedClause =
     contract.appliedClauses.find(appClause => appClause._id === appliedClauseID);
 
+  // This error will never occur. It is here to make TypeScript happy.
   if (!appliedClause)
     throw new ApolloError('Error');
 
@@ -39,7 +40,7 @@ export async function createBill(
   });
 
   if (!clause)
-    throw new ApolloError(`Could not find Clause refereced by AppliedClause with id ${appliedClauseID}`);
+    throw new ApolloError(`Could not find Clause referenced by AppliedClause with id ${appliedClauseID}`);
 
   const payment = clause.payment;
   const days = Math.floor((Date.now() - parseInt(appliedClause.date)) / MS_TO_DAY_RATE);
@@ -47,14 +48,18 @@ export async function createBill(
   const finalValue = payment.increments.reduce<number>((result, i) => {
     const cycles = Math.floor(days / i.period);
     const absoluteRate = i.absoluteRate ? i.absoluteRate * cycles : 0;
-    const relativeRate = i.relativeRate ? payment.baseCharge * Math.pow((1 + i.relativeRate), cycles) : 0;
+    const relativeRate = i.relativeRate ? payment.baseCharge * Math.pow((i.relativeRate), cycles) : 0;
     return result + absoluteRate + relativeRate;
   }, payment.baseCharge);
 
-  return await mongo.Bill.insertMany([{
+  const bill = {
     _id: uuidv4(),
     value: finalValue,
     chargeDate: Date.now().toString(),
     appliedClauseID,
-  }]);
+  }
+
+  await mongo.Bill.insertMany([bill]);
+
+  return bill;
 }
