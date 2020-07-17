@@ -190,7 +190,28 @@ type Mutation {
   **Return:** The saved user and an User data type.
   """
   createUser(cpf: String!, email: String!, name: String!, rg: String!): User!
+
+  """
+  Add the given user as representative from the given company
+
+  **Arguments:**
+  1. @arg `userId`: user's id that will be used to identify the user
+  2. @arg `companyId`: comapny's id that will be used to identify the company
+
+  **Return:** The saved user and an User data type.
+  """
   addRepresentation(userId: ID!, companyId: ID!): User!
+
+  """
+  Add or overwrite the signature to a given user.
+
+  **Arguments:**
+  1. @arg `userID`: user's id that will be used to identify the user
+  2. @arg `signature`: the base64 version of a photo from the user's signature
+
+  **Return:** The update user with its new signature
+  """
+  addSignature(userID: ID!, signature: String!): User!
 
   # Company resolvers
   createCompany(
