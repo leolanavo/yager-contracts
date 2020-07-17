@@ -3,6 +3,8 @@ import { ApolloError } from 'apollo-server-koa';
 import { Context } from '@typings/Context';
 import { Notification } from '@typings/Notification';
 
+import { createBill } from '@resolvers/Bill';
+
 interface Args {
   appliedClauseID: string;
 }
@@ -27,6 +29,14 @@ export async function addNotification(
   if (!contract)
     throw new ApolloError(`Could not find Contract containing an AplliedClause with id ${appliedClauseID}`, '404');
 
+  const clauseIndex = contract.appliedClauses.findIndex(appClause => appClause._id === appliedClauseID)
+  const appliedClause = contract.appliedClauses[clauseIndex];
+
+  if (appliedClause.numberNotifications === appliedClause.notifications.length) {
+    createBill(_, { appliedClauseID: appliedClause.id }, context, null);
+    return contract;
+  }
+
   const notification: Notification = {
     _id: uuidv4(),
     date: Date.now().toString(),
@@ -34,8 +44,6 @@ export async function addNotification(
 
   const savedNotification =
     await mongo.Notification.insertMany([notification]);
-
-  const clauseIndex = contract.appliedClauses.findIndex(appClause => appClause._id === appliedClauseID)
 
   if (!contract.appliedClauses[clauseIndex].notifications)
     contract.appliedClauses[clauseIndex].notifications = [];

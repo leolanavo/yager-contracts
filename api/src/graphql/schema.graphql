@@ -294,7 +294,9 @@ type Mutation {
   """
   terminateContract(partyID: ID!, contractID: ID!): Contract!
   """
-    Register an infraction notification to an applied clause.
+    Register an infraction notification to an applied clause. If the number of notifications exceed
+    the number in the applied clause, a bill will be generated instead, ant the contract will be return
+    unchanged.
 
     **Arguments:**
     1. @arg `appliedClauseID`: the appliedClause's id that will receive a new notification
