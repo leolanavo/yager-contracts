@@ -466,3 +466,178 @@ mutation addSignature{
     signature
   }
 }
+
+"""
+Add extension
+"""
+mutation addExtensions{
+  extension1: addExtension(
+    contractID: "4fc8c08b-8768-48be-a290-9f7fbba20edd",
+    date: "1461542400000",
+    newEndDate: "1595025493000"
+  ){
+    _id
+    mainParty
+    extensions {
+      newEndDate
+    }
+  }
+}
+
+"""
+{
+  "data": {
+    "extension1": {
+      "_id": "4fc8c08b-8768-48be-a290-9f7fbba20edd",
+      "mainParty": "b10443ff-ba46-4b8b-812a-8148208c344d",
+      "extensions": [
+        {
+          "newEndDate": "1595025493000"
+        }
+      ]
+    }
+  }
+}
+"""
+
+"""
+Add clauses
+"""
+mutation addClauses {
+  clause1: addClause(
+    clause: {
+      delayTolerance: 0
+      numberNotifications: 0
+      rescissory: true
+      text: "Clause 1 description"
+      payment: { baseCharge: 100.00, kind: "single", paymentDeadline: 10 }
+    },
+    contractID: "4fc8c08b-8768-48be-a290-9f7fbba20edd",
+    startDate: "1595025493000"
+  ) {
+    _id
+    appliedClauses {
+      _id
+      clauseID
+    }
+  }
+}
+
+"""
+{
+  "data": {
+    "clause1": {
+      "_id": "4fc8c08b-8768-48be-a290-9f7fbba20edd",
+      "appliedClauses": [
+        {
+          "_id": "4117a8e2-a61b-487a-b024-2cc044336ce2",
+          "clauseID": "bc3db365-5afd-4af3-9d0e-a585e96bb250"
+        },
+        {
+          "_id": "bb921c66-218a-47f7-b7c4-c381b0a5ba45",
+          "clauseID": "bebe0606-8860-45bf-b9c0-66f33fee25c7"
+        }
+      ]
+    }
+  }
+}
+"""
+
+"""
+Terminate contracts
+"""
+mutation terminateContracts {
+	terminate1: terminateContract(
+    partyID: "d2cf4b14-481f-435d-890a-f1dac79f3333",
+    contractID: "cbe8728b-8958-4cef-9635-8e6056c72d6b"
+  ){
+    _id
+    mainParty
+    secondaryParty
+    terminatedBy
+    terminatedDate
+  } 
+}
+"""
+{
+  "data": {
+    "terminate1": {
+      "_id": "cbe8728b-8958-4cef-9635-8e6056c72d6b",
+      "mainParty": "f8840dab-253d-4d33-a1cf-cebe432317c5",
+      "secondaryParty": "d2cf4b14-481f-435d-890a-f1dac79f3333",
+      "terminatedBy": "d2cf4b14-481f-435d-890a-f1dac79f3333",
+      "terminatedDate": "1595027383160"
+    }
+  }
+}
+"""
+
+"""
+Add notifications
+"""
+mutation addNotifications {
+  notification: addNotification(
+    appliedClauseID: "4117a8e2-a61b-487a-b024-2cc044336ce2"
+  ) {
+    _id
+    appliedClauses {
+      notifications {
+        date
+      }
+    }
+  }
+}
+"""
+{
+  "data": {
+    "notification": {
+      "_id": "4fc8c08b-8768-48be-a290-9f7fbba20edd",
+      "appliedClauses": [
+        {
+          "notifications": [
+            {
+              "date": "1595028024367"
+            }
+          ]
+        },
+        {
+          "notifications": null
+        }
+      ]
+    }
+  }
+}
+"""
+
+"""
+Add references
+"""
+mutation addReferences {
+  reference1: addReference(
+    clauseID: "bebe0606-8860-45bf-b9c0-66f33fee25c7",
+    referencedClauseID: "bc3db365-5afd-4af3-9d0e-a585e96bb250"
+  ){
+		_id,
+    references
+  }
+}
+"""
+{
+  "data": {
+    "reference1": {
+      "_id": "bebe0606-8860-45bf-b9c0-66f33fee25c7",
+      "references": [
+        "bc3db365-5afd-4af3-9d0e-a585e96bb250"
+      ]
+    }
+  }
+}
+"""
+
+"""
+Pay bills
+"""
+
+"""
+
+"""
