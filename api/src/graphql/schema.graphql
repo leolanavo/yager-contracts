@@ -132,6 +132,16 @@ type Query {
   """
   getContract(contractID: ID!): Contract!
 
+  """
+  Get unpaid bills for a given applied Clause
+
+  **Arguments:**
+    1. @arg `appliedClauseID`: the appliedClause's id that will be used to create the bill
+
+  **Return:** Return the list of unpaid bills from the given appliedClause
+  """
+  getUnpaidBills(appliedClauseID: ID!): [Bill!]!
+
   # Recommendation Queries
   """
   Get best rated companies by segment related to an user

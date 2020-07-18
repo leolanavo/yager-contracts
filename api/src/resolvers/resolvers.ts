@@ -10,7 +10,7 @@ import {
   terminateContract,
   getContract
 } from "@resolvers/Contract";
-import { createBill, payBill } from "@resolvers/Bill";
+import { createBill, payBill, getUnpaidBills } from "@resolvers/Bill";
 import { addNotification } from '@resolvers/AppliedClause';
 import { addReference } from "@resolvers/Clause";
 
@@ -44,6 +44,7 @@ const resolvers: IResolvers = {
     getBestRatedCompanyBySegment,
     getClosestCompanyPathBySegment,
     getRelatedCompanies,
+    getUnpaidBills,
     getRelatedCompaniesBySegment,
     getRelatedCompanyBySegmentWithMoreContracts,
   },
