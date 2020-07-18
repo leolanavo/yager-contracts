@@ -43,8 +43,13 @@ export async function addNotification(
   const clauseIndex = contract.appliedClauses.findIndex(appClause => appClause._id === appliedClauseID)
   const appliedClause = contract.appliedClauses[clauseIndex];
 
+  console.log(appliedClause);
+
   if (!contract.appliedClauses[clauseIndex].notifications)
     contract.appliedClauses[clauseIndex].notifications = [];
+
+  console.log(appliedClause.numberNotifications);
+  console.log(appliedClause.notifications);
 
   if (appliedClause.numberNotifications === appliedClause.notifications.length) {
     createBill(_, { appliedClauseID: appliedClause.id }, context, null);
@@ -86,8 +91,11 @@ export async function addNotification(
     await mongo.Notification.insertMany([notification]);
 
   contract.appliedClauses[clauseIndex].notifications.push(savedNotification[0]);
-
-  await contract.save();
+  
+  await mongo.Contract.updateOne(
+    { _id: contract._id },
+    { appliedClause: { $push: { notifications: notification } } }
+  );
 
   return contract;
 }
