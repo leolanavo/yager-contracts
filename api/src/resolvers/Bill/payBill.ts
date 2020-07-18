@@ -7,12 +7,14 @@ interface Args {
   billID: string;
 }
 
+const MS_TO_DAY_RATE = 86_400_000;
+
 const changeCompanyRating = `MATCH (a:Company)
 WHERE a.party_id = $partyID
 SET a.rating = a.rating + $points
 RETURN a;`;
 
-const changeUserRating = `MATCH (a:$User)
+const changeUserRating = `MATCH (a:User)
 WHERE a.party_id = $partyID
 SET a.rating = a.rating + $points
 RETURN a;`;
@@ -30,6 +32,9 @@ export async function payBill(
 
   if (!bill)
     throw new ApolloError(`Could not find Bill with id ${billID}`, '404');
+
+  if (bill.paymentDate)
+    throw new ApolloError(`Bill with id ${billID} already paid.`, '422');
 
   const contract = await mongo.Contract.findOne({
     appliedClauses: {
@@ -50,7 +55,8 @@ export async function payBill(
   await bill.save();
 
   const appliedClause = await contract.appliedClauses.find(clause => clause._id === bill.appliedClauseID);
-  if (bill.paymentDate > bill.chargeDate + appliedClause?.delayTolerance) {
+
+  if (parseInt(bill.paymentDate) > parseInt(bill.chargeDate) + (appliedClause?.delayTolerance || 0) * MS_TO_DAY_RATE) {
 
     if (penalizedParty?.entity === "company") {
       await neo4j.driver

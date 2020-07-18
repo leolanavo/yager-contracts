@@ -14,7 +14,7 @@ WHERE a.party_id = $partyID
 SET a.rating = a.rating + $points
 RETURN a;`;
 
-const changeUserRating = `MATCH (a:$User)
+const changeUserRating = `MATCH (a:User)
 WHERE a.party_id = $partyID
 SET a.rating = a.rating + $points
 RETURN a;`;
