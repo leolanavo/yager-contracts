@@ -34,6 +34,15 @@ export async function addRepresentation(
   if (!company)
     throw new ApolloError(`Company with id ${companyId} not found`, '404');
 
+  const companies = await Promise.all(user.companies.map(c => {
+    return Company.findOne({
+      id: c.id
+    }, {
+      relations: ['party']
+    });
+  }));
+
+  user.companies = companies as Company[];
   user.companies.push(company);
   await User.save(user);
 
