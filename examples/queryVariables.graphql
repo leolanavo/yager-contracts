@@ -5,16 +5,14 @@
   "user2ID": "",
   "user2Party": "",
   
-  "user3ID": "",
   "user3Party": "",
   
   "company1ID": "",
   "company1Party": "",
   
   "company2ID": "",
-  "company2Party": ""
+  "company2Party": "",
   
-  "company3ID": "",
   "company3Party": "",
   
   "contract1ID": "",
@@ -23,7 +21,9 @@
   
   "appliedClause1ID": "",
   
-  "clause1ID": ""
+  "clause1ID": "",
   
-  "clause2ID": ""
+  "clause2ID": "",
+
+  "bill1ID": ""
 }
