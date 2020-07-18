@@ -4,7 +4,7 @@ import { ClauseInput } from '@typings/Clause';
 
 export function inputToClause(clause: ClauseInput, uuidv4: v4): Object {
   clause.payment.increments =
-    clause.payment.increments.map(inc => ({ _id: uuidv4(), ...inc }));
+    clause.payment.increments?.map(inc => ({ _id: uuidv4(), ...inc }));
   return {
     _id: uuidv4(),
     ...clause
