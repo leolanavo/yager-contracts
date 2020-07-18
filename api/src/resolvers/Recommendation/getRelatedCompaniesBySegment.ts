@@ -33,8 +33,6 @@ export async function getRelatedCompaniesBySegment(
 
   const response = [] as any;
 
-  console.log(response);
-
   result.records.forEach((r) => {
     const company = {
       id: "",
@@ -45,8 +43,6 @@ export async function getRelatedCompaniesBySegment(
     };
 
     company.name = r.get("Company");
-
-    console.log(company);
 
     response.push(company);
   });

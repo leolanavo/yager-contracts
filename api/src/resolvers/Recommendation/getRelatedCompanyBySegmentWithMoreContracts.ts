@@ -43,10 +43,7 @@ export async function getRelatedCompanyBySegmentWithMoreContracts(
 
   result.records.forEach((r) => {
     response.name = r.get("Company");
-    console.log(r.get("Number of Contracts"));
   });
-
-  console.log(response);
 
   return response;
 }

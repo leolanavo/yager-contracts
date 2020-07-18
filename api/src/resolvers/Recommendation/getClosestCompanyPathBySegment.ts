@@ -31,9 +31,6 @@ export async function getClosestCompanyPathBySegment(
       segment,
     });
 
-  console.log("\n\n\ngetClosestCompanyPathBySegment");
-  console.log(result.records);
-
   const response = [] as any;
 
   result.records.forEach((r) => {

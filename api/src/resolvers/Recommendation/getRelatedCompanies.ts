@@ -31,8 +31,6 @@ export async function getRelatedCompanies(
 
   const response = [] as any;
 
-  console.log(response);
-
   result.records.forEach((r) => {
     const company = {
       id: "",
@@ -44,8 +42,6 @@ export async function getRelatedCompanies(
 
     company.name = r.get("Company");
     company.segments = r.get("Segments");
-
-    console.log(company);
 
     response.push(company);
   });

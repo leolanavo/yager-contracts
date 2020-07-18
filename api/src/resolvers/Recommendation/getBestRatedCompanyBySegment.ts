@@ -30,8 +30,6 @@ export async function getBestRatedCompanyBySegment(
       segment,
     });
 
-  console.log(result);
-
   const response = {
     id: "",
     cpnj: "",
