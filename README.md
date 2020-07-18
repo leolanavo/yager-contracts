@@ -64,10 +64,7 @@ These are a few examples of how the main features described in the functional
 requirements are satisfied:
 
 - [Create A Contract](#create-a-contract)
-- [Applied Payment](#applied-payment)
 - [Contract Termination](#contract-termination)
-- [Automatic Payment Value Calculation](#automatic-payment-value-calculation)
-- [Rating Calculation](#rating-calculation)
 - [Create User With Signature](#create-user-with-signature)
 - [Companies Recommendation](#companies-recommendation)
 
@@ -110,12 +107,6 @@ mutation contract {
 }
 ```
 
-#### Applied Payment
-
-```
-
-```
-
 #### Contract Termination
 
 ```
@@ -131,18 +122,6 @@ mutation terminate {
     terminatedDate
   }
 }
-```
-
-#### Automatic Payment Value Calculation
-
-```
-
-```
-
-#### Rating Calculation
-
-```
-
 ```
 
 #### Create User With Signature
