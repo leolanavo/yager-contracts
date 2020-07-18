@@ -32,7 +32,7 @@ export async function addReference(
   if (!clause.references)
     clause.references = [];
 
-  if (clause.references.includes(args.referencedClauseID)) {
+  if (!clause.references.includes(args.referencedClauseID)) {
     clause.references.push(args.referencedClauseID);
     await clause.save();
   }
