@@ -8,13 +8,23 @@ interface Args {
   contractID: string;
 }
 
+const changeCompanyRating = `MATCH (a:Company)
+WHERE a.party_id = $partyID
+SET a.rating = a.rating + $points
+RETURN a;`;
+
+const changeUserRating = `MATCH (a:User)
+WHERE a.party_id = $partyID
+SET a.rating = a.rating + $points
+RETURN a;`;
+
 export async function terminateContract(
   _: any,
   args: Args,
   context: Context,
   ___: any,
 ): Promise<any> {
-  const { mongodb: mongo } = context;
+  const { mongodb: mongo, neo4j } = context;
   const { partyID, contractID } = args;
 
   const party = await Party.findOne({
@@ -40,14 +50,38 @@ export async function terminateContract(
       '422'
     );
 
-  // TODO: penalize party
-  // const penalizedPartyID = contract.mainParty === party.id
-  //   ? contract.secondaryParty
-  //   : contract.mainParty;
+  const penalizedPartyID = contract.mainParty === party.id
+    ? contract.secondaryParty
+    : contract.mainParty;
 
-  // const penalizedParty = await Party.findOne({
-  //   id: penalizedPartyID
-  // });
+  const penalizedParty = await Party.findOne({
+    id: penalizedPartyID
+  });
+
+  if (!penalizedParty)
+    throw new ApolloError(`This error should not exist. Party not found id: ${penalizedPartyID} `, '500');
+
+  if (penalizedParty.entity === "company") {
+    await neo4j.driver
+      .session({
+        defaultAccessMode: "WRITE",
+        database: "yager",
+      })
+      .run(changeCompanyRating, {
+        partyID: penalizedPartyID,
+        points: -150
+      });
+  } else {
+    await neo4j.driver
+      .session({
+        defaultAccessMode: "WRITE",
+        database: "yager",
+      })
+      .run(changeUserRating, {
+        partyID: penalizedPartyID,
+        points: -150
+      });
+  }
 
   contract.terminatedBy = partyID;
   contract.terminatedDate = Date.now().toString();
