@@ -32,6 +32,9 @@ export async function addNotification(
   const clauseIndex = contract.appliedClauses.findIndex(appClause => appClause._id === appliedClauseID)
   const appliedClause = contract.appliedClauses[clauseIndex];
 
+  if (!contract.appliedClauses[clauseIndex].notifications)
+    contract.appliedClauses[clauseIndex].notifications = [];
+
   if (appliedClause.numberNotifications === appliedClause.notifications.length) {
     createBill(_, { appliedClauseID: appliedClause.id }, context, null);
     return contract;
@@ -44,9 +47,6 @@ export async function addNotification(
 
   const savedNotification =
     await mongo.Notification.insertMany([notification]);
-
-  if (!contract.appliedClauses[clauseIndex].notifications)
-    contract.appliedClauses[clauseIndex].notifications = [];
 
   contract.appliedClauses[clauseIndex].notifications.push(savedNotification[0]);
 
